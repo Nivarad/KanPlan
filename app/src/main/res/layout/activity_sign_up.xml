@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_SignUp_Logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/kanplan_logo"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/LBL_SignUp_SignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textStyle="bold|italic"
+        android:layout_below="@id/image_SignUp_Logo"
+        android:textSize="30sp"
+
+        android:layout_marginTop="10dp"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/LBL_SignUp_welcomeMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LBL_SignUp_SignIn"
+        android:text="New user ? you would really want to try this out"
+        android:layout_marginVertical="5dp"/>
+
+    <EditText
+        android:id="@+id/editText_SignUp_email"
+        android:layout_below="@id/LBL_SignUp_welcomeMessage"
+        android:layout_marginTop="10dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"/>
+
+    <EditText
+        android:layout_below="@id/editText_SignUp_email"
+        android:layout_marginTop="10dp"
+        android:id="@+id/editText_SignUp_firstname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Firstname"/>
+
+    <EditText
+        android:layout_below="@id/editText_SignUp_firstname"
+        android:layout_marginTop="10dp"
+        android:id="@+id/editText_SignUp_lastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Lastname"/>
+
+    <EditText
+        android:id="@+id/editText_SignUp_password"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText_SignUp_lastname"
+        android:layout_marginTop="10dp"
+        android:hint="Password"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/Button_SignUp_SignUp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:layout_below="@id/editText_SignUp_password"
+        android:layout_marginVertical="20dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#D14D72"
+        android:layout_marginTop="40dp"/>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/LBL_SignUp_yesEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Have an account??"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/Button_SignUp_SignUp"
+        android:layout_marginTop="10dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/Button_SignUp_signInButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignBaseline="@id/LBL_SignUp_yesEmail"
+        android:layout_alignRight="@id/LBL_SignUp_yesEmail"
+        android:layout_marginRight="-100dp"
+
+        android:textColor="#D14D72"
+        android:text="Sign In" />
+
+    </RelativeLayout>
+</ScrollView>

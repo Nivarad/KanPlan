@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#00FF00 " /> <!-- Set the desired highlight color here -->
+    <corners android:radius="8dp" /> <!-- Adjust the corner radius as per your preference -->
+</shape>

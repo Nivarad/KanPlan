@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "514259592800",
+    "project_id": "kanplan-b403b",
+    "storage_bucket": "kanplan-b403b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514259592800:android:c094ca0b31d857abb38505",
+        "android_client_info": {
+          "package_name": "com.example.kanplan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514259592800-q8dhcod926s6lqpu0jon6qjqm6va195v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kanplan",
+            "certificate_hash": "532e3e57f9ff87f86077b502d6b27a1169d3c98e"
+          }
+        },
+        {
+          "client_id": "514259592800-hbgcr4u44iploe0ierrj7n35c373ncsp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqwdsa30RD_cNDxr3eTmKQYd1x9mxhubs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "514259592800-2i72oj4hgkilea6jd3gt275p9j0d6t6d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

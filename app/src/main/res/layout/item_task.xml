@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="10dp"
+                        android:elevation="0dp"
+                        android:backgroundTint="#CCCCCC">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                >
+
+                                <com.google.android.material.imageview.ShapeableImageView
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginTop="25dp"
+                                    android:src="@drawable/ic_projects"/>
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/LBL_ProjectView_projectName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Add login page"
+                                    android:layout_marginTop="10dp"
+                                    android:textColor="#595858"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"/>
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/LBL_ProjectView_projectDescription"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Description: need to add a login page"
+                                    android:layout_marginTop="10dp"
+                                    android:textColor="#595858"
+                                    android:textSize="14sp"/>
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:id="@+id/LBL_TaskView_Complexity"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="complexity"
+                                        android:background="@drawable/highlight_asap_vcomplex_vbig"
+                                        android:paddingHorizontal="8dp"/>
+
+                                    <Space
+                                        android:layout_width="8dp"
+                                        android:layout_height="wrap_content" />
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:id="@+id/LBL_TaskView_Size"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Size"
+                                        android:background="@drawable/highlight_low_small_easy"
+                                        android:paddingHorizontal="8dp"/>
+
+                                    <Space
+                                        android:layout_width="8dp"
+                                        android:layout_height="wrap_content" />
+                                    <com.google.android.material.textview.MaterialTextView
+                                        android:id="@+id/LBL_TaskView_Emergency"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Emergency"
+                                        android:background="@drawable/highlight_high_complex_big"
+                                        android:paddingHorizontal="8dp"/>
+
+                                    <Space
+                                        android:layout_width="8dp"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+
+
+
+
+
+
+
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
