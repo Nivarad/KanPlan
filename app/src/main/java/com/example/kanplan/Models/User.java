@@ -1,6 +1,13 @@
 package com.example.kanplan.Models;
 
 public class User {
+
+    private String firstname;
+    private String lastname;
+    private String email;
+
+    private String userID;
+
     public String getFirstname() {
         return firstname;
     }
@@ -17,9 +24,7 @@ public class User {
         this.lastname = lastname;
     }
 
-    private String firstname;
-    private String lastname;
-    private String email;
+
 
 
 
@@ -35,17 +40,27 @@ public class User {
         return userID;
     }
 
+    public String getUserName(){
+        return firstname+" "+lastname;
+    }
+
     public void setUserID(String userID) {
         this.userID = userID;
     }
 
-    private String userID;
 
     public User(String firstname,String lastname,String email,String userID){
         this.firstname=firstname;
         this.lastname=lastname;
         this.email=email;
         this.userID=userID;
+    }
+
+    public User(String firstname,String lastname,String email){
+        this.firstname=firstname;
+        this.lastname=lastname;
+        this.email=email;
+
     }
     public User(){}
 }

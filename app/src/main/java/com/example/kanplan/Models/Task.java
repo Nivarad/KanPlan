@@ -42,6 +42,8 @@ public class Task {
 
     private TaskSize taskSize;
 
+    private Emergency emergency;
+
 
     public Task(){}
 
@@ -117,7 +119,6 @@ public class Task {
         this.emergency = emergency;
     }
 
-    private Emergency emergency;
 
 
 
