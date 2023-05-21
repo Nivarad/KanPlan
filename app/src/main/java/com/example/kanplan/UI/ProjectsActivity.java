@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.kanplan.Adapters.ProjectAdapter;
 import com.example.kanplan.Interfaces.ProjectDataCallback;
+import com.example.kanplan.Interfaces.RecyclerViewInterface;
 import com.example.kanplan.Models.Project;
 import com.example.kanplan.R;
 import com.example.kanplan.Utils.MySP;
@@ -22,13 +24,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ProjectsActivity extends AppCompatActivity {
+public class ProjectsActivity extends AppCompatActivity implements RecyclerViewInterface {
 
     private ShapeableImageView backArrow;
     private ShapeableImageView addProject;
     private RecyclerView recyclerView;
+
+    private ArrayList<Project> storedProjects = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class ProjectsActivity extends AppCompatActivity {
             @Override
             public void onCallback(ArrayList<Project> projects) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(ProjectsActivity.this));
-                recyclerView.setAdapter(new ProjectAdapter(getApplicationContext(), projects));
+                recyclerView.setAdapter(new ProjectAdapter(getApplicationContext(), projects, ProjectsActivity.this));
             }
         });
 
@@ -78,6 +81,7 @@ public class ProjectsActivity extends AppCompatActivity {
                     Project project = projectSnapshot.getValue(Project.class);
                     if (project.getTeam().contains(userEmail)) {
                         projects.add(project);
+                        storedProjects.add(project);
                     }
                 }
                 callback.onCallback(projects);
@@ -99,5 +103,14 @@ public class ProjectsActivity extends AppCompatActivity {
     public void openHomeScreen() {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent =new Intent(this,TasksActivity.class);
+        intent.putExtra("projectID",storedProjects.get(position).getProjectName());
+        Log.d("project clicked", String.valueOf(storedProjects.get(position)));
+        startActivity(intent);
+
     }
 }

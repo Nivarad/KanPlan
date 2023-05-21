@@ -3,11 +3,14 @@ package com.example.kanplan.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.kanplan.Models.Project;
+
 public class MySP {
 
     private static final String DB_FILE = "DB_FILE";
     private static final String KEY_EMAIL = "Email";
     private static final String KEY_NAME = "Name";
+    private static final String PROJECT_ID = "Project";
 
     private static MySP instance = null;
     private SharedPreferences sharedPreferences;
@@ -44,5 +47,14 @@ public class MySP {
 
     public String getName() {
         return sharedPreferences.getString(KEY_NAME, "");
+    }
+
+    public void saveProjectID(String projectID) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(PROJECT_ID, projectID);
+        editor.apply();
+    }
+    public String getProjectID(){
+        return sharedPreferences.getString(PROJECT_ID,"");
     }
 }

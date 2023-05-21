@@ -8,6 +8,9 @@ plugins {
 android {
     namespace 'com.example.kanplan'
     compileSdk 33
+    buildFeatures {
+        viewBinding true
+    }
 
     defaultConfig {
         applicationId "com.example.kanplan"

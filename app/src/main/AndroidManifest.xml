@@ -25,6 +25,9 @@
             android:name=".UI.TaskActivity"
             android:exported="false" />
         <activity
+            android:name=".UI.TasksActivity"
+            android:exported="false" />
+        <activity
             android:name=".UI.HomeActivity"
             android:exported="false" />
         <activity

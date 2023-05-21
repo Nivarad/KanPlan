@@ -12,7 +12,7 @@ public class Task {
         EASY
     }
 
-    public enum TaskSize {
+    public enum Size {
         VERY_BIG,
         BIG,
         REGULAR,
@@ -40,11 +40,35 @@ public class Task {
 
     private Complexity complexity;
 
-    private TaskSize taskSize;
+    private Size size;
 
     private Emergency emergency;
+    private String projectID;
 
+    public Size getSize() {
+        return size;
+    }
 
+    public String getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(String projectID) {
+        this.projectID = projectID;
+    }
+
+    public Task(String taskName, String taskDescription, Date startDate, Date endDate, ArrayList<String> comments, ArrayList<User> assigned, Complexity complexity, Size size, Emergency emergency, String projectID) {
+        this.taskName = taskName;
+        this.taskDescription = taskDescription;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.comments = comments;
+        this.assigned = assigned;
+        this.complexity = complexity;
+        this.size = size;
+        this.emergency = emergency;
+        this.projectID = projectID;
+    }
     public Task(){}
 
     public String getTaskName() {
@@ -103,12 +127,12 @@ public class Task {
         this.complexity = complexity;
     }
 
-    public TaskSize getTaskSize() {
-        return taskSize;
+    public Size getTaskSize() {
+        return size;
     }
 
-    public void setTaskSize(TaskSize taskSize) {
-        this.taskSize = taskSize;
+    public void setSize(Size size) {
+        this.size = size;
     }
 
     public Emergency getEmergency() {
@@ -117,6 +141,36 @@ public class Task {
 
     public void setEmergency(Emergency emergency) {
         this.emergency = emergency;
+    }
+    public String getComplexityString() {
+        if(this.complexity == Task.Complexity.COMPLEX)
+            return "Complex";
+        if(this.complexity == Task.Complexity.VERY_COMPLEX)
+            return "Very Complex";
+        if(this.complexity == Task.Complexity.REGULAR)
+            return "Regular";
+        return "Easy";
+    }
+    public String getSizeString() {
+
+        if(this.size == Task.Size.VERY_BIG)
+            return "Very Big";
+        if(this.size == Task.Size.BIG)
+            return "Big";
+        if(this.size == Task.Size.REGULAR)
+            return "Regular";
+        return "Small";
+    }
+
+    public String getEmergencyString() {
+
+        if(this.emergency == Task.Emergency.ASAP)
+            return "ASAP";
+        if(this.emergency == Task.Emergency.HIGH)
+            return "High";
+        if(this.emergency == Task.Emergency.MEDIUM)
+            return "Medium";
+        return "Low";
     }
 
 

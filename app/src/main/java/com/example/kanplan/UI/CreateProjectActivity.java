@@ -29,7 +29,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CreateProjectActivity extends AppCompatActivity {
@@ -156,14 +155,16 @@ public class CreateProjectActivity extends AppCompatActivity {
                 }
                 if(!emails.contains(MySP.getInstance().getEmail()))
                     emails.add(MySP.getInstance().getEmail());
-                Project project = new Project(name,user,description,emails,complex,siz,emerg);
+                Project project = new Project(name,user,description,emails,complex,siz,emerg,"");
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference projectsRef = database.getReference("projects");
 
                 String key = projectsRef.push().getKey();
 
+
                 // Use the key to set the new project data
                 if (key != null) {
+                    project.setProjectID(key);
                     projectsRef.child(key).setValue(project)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

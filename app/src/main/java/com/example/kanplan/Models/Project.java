@@ -44,7 +44,9 @@ public class Project {
 
     private ArrayList<Task> tasks;
 
-    public Project(String projectName, User projectManager, String description, List<String> team, Complexity complexity, Size size, Emergency emergency) {
+    private String projectID;
+
+    public Project(String projectName, User projectManager, String description, List<String> team, Complexity complexity, Size size, Emergency emergency, String projectID) {
         this.projectName = projectName;
         this.projectManager = projectManager;
         this.description = description;
@@ -52,6 +54,7 @@ public class Project {
         this.complexity = complexity;
         this.size = size;
         this.emergency = emergency;
+        this.projectID = projectID;
     }
     public Project(){}
 
@@ -64,11 +67,6 @@ public class Project {
             return "Regular";
         return "Easy";
     }
-
-    public void setComplexity(Complexity complexity) {
-        this.complexity = complexity;
-    }
-
     public String getSizeString() {
 
         if(this.size ==Size.VERY_BIG)
@@ -94,6 +92,12 @@ public class Project {
             return "Medium";
         return "Low";
     }
+
+    public void setComplexity(Complexity complexity) {
+        this.complexity = complexity;
+    }
+
+
 
     public void setEmergency(Emergency emergency) {
         this.emergency = emergency;
@@ -152,6 +156,13 @@ public class Project {
 
     public Emergency getEmergency() {
         return emergency;
+    }
+    public String getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(String projectID) {
+        this.projectID = projectID;
     }
 
 

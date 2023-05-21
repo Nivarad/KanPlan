@@ -2,35 +2,39 @@ package com.example.kanplan.Adapters;
 
 
 
-import android.content.ClipData;
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.kanplan.Holders.ProjectHolder;
+import com.example.kanplan.Interfaces.RecyclerViewInterface;
 import com.example.kanplan.Models.Project;
 import com.example.kanplan.R;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 
-public class ProjectAdapter extends RecyclerView.Adapter<ProjectHolder> {
+public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> {
 
 
     private Context context;
     ArrayList<Project> projects;
 
-    public ProjectAdapter(Context context, ArrayList<Project> projects) {
+    private final RecyclerViewInterface recyclerViewInterface;
+
+    public ProjectAdapter(Context context, ArrayList<Project> projects, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.projects = projects;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
     @Override
     public ProjectHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ProjectHolder(LayoutInflater.from(context).inflate(R.layout.item_project,parent,false));
+        return new ProjectHolder(LayoutInflater.from(context).inflate(R.layout.item_project,parent,false),recyclerViewInterface);
     }
 
     @Override
@@ -90,5 +94,47 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectHolder> {
     @Override
     public int getItemCount() {
         return projects.size();
+    }
+
+
+    public static class ProjectHolder extends RecyclerView.ViewHolder {
+
+        public MaterialTextView projectName;
+        public MaterialTextView projectLeader;
+        public MaterialTextView projectDescription;
+
+        public MaterialTextView projectComplexity;
+        public MaterialTextView projectSize;
+        public MaterialTextView projectEmergency;
+
+
+
+        public ProjectHolder(@NonNull View itemView , RecyclerViewInterface recyclerViewInterface) {
+            super(itemView);
+
+            findViewsHolder();
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(recyclerViewInterface !=null){
+                        int position = getAdapterPosition();
+                        if(position!= RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(position);
+                        }
+                    }
+                }
+            });
+
+        }
+
+        public void findViewsHolder(){
+            projectName = itemView.findViewById(R.id.projectName);
+            projectLeader=itemView.findViewById(R.id.projectLeader);
+            projectDescription=itemView.findViewById(R.id.projectDescription);
+            projectComplexity = itemView.findViewById(R.id.ProjectComplexity);
+            projectSize = itemView.findViewById(R.id.ProjectSize);
+            projectEmergency = itemView.findViewById(R.id.ProjectEmergency);
+        }
     }
 }

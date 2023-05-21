@@ -20,14 +20,15 @@ public class ProjectHolder extends RecyclerView.ViewHolder {
 
 
 
+
     public ProjectHolder(@NonNull View itemView) {
         super(itemView);
 
-        findViews();
+        findViewsHolder();
 
     }
 
-    public void findViews(){
+    public void findViewsHolder(){
         projectName = itemView.findViewById(R.id.projectName);
         projectLeader=itemView.findViewById(R.id.projectLeader);
         projectDescription=itemView.findViewById(R.id.projectDescription);
