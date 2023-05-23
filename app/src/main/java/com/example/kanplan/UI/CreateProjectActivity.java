@@ -43,7 +43,6 @@ public class CreateProjectActivity extends AppCompatActivity {
 
     private List<String> emails = new ArrayList<>();
 
-    private FirebaseAuth auth;
     private User user;
 
     private final String[] COMPLEXITIES = {"Complexity","Easy","Regular","Complex","Very Complex"};

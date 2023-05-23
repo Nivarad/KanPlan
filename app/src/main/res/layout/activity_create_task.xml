@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.TaskActivity">
+    tools:context=".UI.CreateTaskActivity">
 
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/Image_Task_backArrow"
+        android:id="@+id/Image_CreateTask_backArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/baseline_arrow_back_24"
@@ -16,21 +16,21 @@
         android:layout_marginLeft="20dp"/>
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/Image_Task_editIcon"
+        android:id="@+id/Image_CreateTask_saveIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_edit"
+        android:src="@drawable/baseline_save_24"
         android:layout_marginTop="20dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/LBL_Task_taskName"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/LBL_CreateTask_taskName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Image_Task_backArrow"
+        android:layout_below="@id/Image_CreateTask_backArrow"
         android:layout_marginTop="10dp"
-        android:text="Add Login Page"
+        android:hint="Task Name"
         android:textStyle="bold"
         android:textSize="24sp"
         android:layout_marginHorizontal="20dp"
@@ -39,7 +39,7 @@
         android:id="@+id/LBL_Task_Description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/LBL_Task_taskName"
+        android:layout_below="@id/LBL_CreateTask_taskName"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:textStyle="bold"
@@ -65,72 +65,88 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/LBL_TaskView_descriptionContent"
+        android:id="@+id/LBL_CreateTask_descriptionContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@id/LBL_TASK_descriptionLine"
         android:layout_margin="20dp">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/LBL_TaskView_taskDescription"
+        <EditText
+            android:id="@+id/editText_CreateTask_Description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add a login page"
+            android:hint="Task Description"
             android:layout_marginBottom="20dp"
             android:textSize="16sp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/LBL_TaskView_Complexity"
+            <Spinner
+                android:id="@+id/spinner_CreateTask_Complexity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="complexity"
-                android:background="@drawable/highlight_asap_vcomplex_vbig"
-                android:paddingHorizontal="8dp"/>
+                />
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/LBL_TaskView_Complexity"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="complexity"-->
+            <!--                android:background="@drawable/highlight_asap_vcomplex_vbig"-->
+            <!--                android:paddingHorizontal="8dp"/>-->
 
-            <Space
-                android:layout_width="8dp"
-                android:layout_height="wrap_content" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/LBL_TaskView_Size"
+
+            <Spinner
+                android:id="@+id/spinner_CreateTask_Size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Size"
-                android:background="@drawable/highlight_low_small_easy"
-                android:paddingHorizontal="8dp"/>
+                />
 
-            <Space
-                android:layout_width="8dp"
-                android:layout_height="wrap_content" />
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/LBL_TaskView_Emergency"
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/LBL_TaskView_Size"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Size"-->
+            <!--                android:background="@drawable/highlight_low_small_easy"-->
+            <!--                android:paddingHorizontal="8dp"/>-->
+
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/LBL_TaskView_Emergency"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Emergency"-->
+            <!--                android:background="@drawable/highlight_high_complex_big"-->
+            <!--                android:paddingHorizontal="8dp"/>-->
+
+            <Spinner
+                android:id="@+id/spinner_CreateTask_Emergency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Emergency"
-                android:background="@drawable/highlight_high_complex_big"
-                android:paddingHorizontal="8dp"/>
+                />
+            <Spinner
+                android:id="@+id/spinner_CreateTask_Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
 
-            <Space
-                android:layout_width="8dp"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
 
     </LinearLayout>
 
 
+
+
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/LBL_TaskView_PeopleAssigned"
+        android:id="@+id/LBL_Task_PeopleAssigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/LBL_TaskView_descriptionContent"
+        android:layout_below="@id/LBL_CreateTask_descriptionContent"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:textStyle="bold"
@@ -138,10 +154,10 @@
         android:text="People Assigned"/>
 
     <RelativeLayout
-        android:id="@+id/LBL_TASK_peopleLine"
+        android:id="@+id/LBL_TASK_peopleAssignedLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/LBL_TaskView_PeopleAssigned">
+        android:layout_below="@id/LBL_Task_PeopleAssigned">
 
         <View
             android:layout_width="match_parent"
@@ -155,15 +171,12 @@
             android:background="@android:color/black"/>
     </RelativeLayout>
 
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/LBL_TaskView_Team"
+    <EditText
+        android:id="@+id/editText_CreateTask_AssignTeam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/LBL_TASK_peopleLine"
-        android:text="team"
-        android:textSize="16sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"/>
+        android:hint="Assign teammates"
+        android:layout_below="@id/LBL_Task_PeopleAssigned"
+        android:layout_marginHorizontal="20dp"/>
 
 </RelativeLayout>

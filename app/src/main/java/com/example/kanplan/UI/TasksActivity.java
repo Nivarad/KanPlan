@@ -18,6 +18,7 @@ public class TasksActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ShapeableImageView backArrow;
     private ShapeableImageView addTask;
+    public static String projectID;
 
     ViewPagerTasksAdapter adapter;
     @Override
@@ -25,9 +26,13 @@ public class TasksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks);
 
+        Intent intent = getIntent();
+        if (intent != null) {
+            projectID = intent.getStringExtra("projectID");
+        }
         findViews();
 
-        adapter = new ViewPagerTasksAdapter(getSupportFragmentManager());
+        adapter = new ViewPagerTasksAdapter(getSupportFragmentManager(),projectID);
         viewPager.setAdapter(adapter);
 
         tab.setupWithViewPager(viewPager);
@@ -45,11 +50,14 @@ public class TasksActivity extends AppCompatActivity {
                 openNewTask();
             }
         });
+
+
     }
 
     private void openNewTask() {
-//        Intent intent =new Intent(this,.class);
-//        startActivity(intent);
+        Intent intent =new Intent(this,CreateTaskActivity.class);
+        intent.putExtra("projectID",projectID);
+        startActivity(intent);
     }
 
     private void openProjectsView() {
@@ -65,4 +73,6 @@ public class TasksActivity extends AppCompatActivity {
 
 
     }
+
+
 }

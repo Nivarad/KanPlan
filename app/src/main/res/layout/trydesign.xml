@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+    android:paddingTop="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -15,7 +15,7 @@
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:id="@+id/projectImage"
-            android:src="@drawable/ic_projects"
+            android:src="@drawable/task_list_menu_document_svgrepo_com"
             android:layout_marginRight="10dp" />
 
         <LinearLayout
@@ -30,8 +30,17 @@
                 android:id="@+id/projectName"
                 android:layout_toEndOf="@id/projectImage"
                 android:textColor="@color/black"
-                android:text="Project Name"
+                android:text="Task Name"
                 android:textSize="20dp"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/taskDescription"
+                android:layout_toEndOf="@id/projectImage"
+                android:textColor="@color/black"
+                android:text="Task Description"
                 />
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -75,68 +84,15 @@
 
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/projectLeader"
-                android:layout_toEndOf="@id/projectImage"
-                android:layout_below="@id/projectName"
-                android:textColor="@color/black"
-                android:text="Project Leader"
-
-                />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/projectDescription"
-                android:layout_toEndOf="@id/projectImage"
-                android:layout_below="@id/projectLeader"
-                android:textColor="@color/black"
-                android:text="Project Description"
-                />
-
         </LinearLayout>
 
-
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/taskButtons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/project">
-
-
-        <Button
-            android:id="@+id/projectDeleteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete"
-            android:textSize="12sp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="20dp"
-            android:backgroundTint="@color/design_default_color_error"/>
-
-        <Button
-            android:id="@+id/projectEditButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/project"
-            android:text="Edit"
-            android:textSize="12sp"
-            android:backgroundTint="#FFE569"/>
-
-    </LinearLayout>
-
-
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@id/taskButtons"
+        android:layout_below="@id/project"
         android:layout_marginTop="10dp"
         android:background="#DAD8D8"/>
 

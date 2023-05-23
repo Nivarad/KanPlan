@@ -2,6 +2,7 @@ package com.example.kanplan.Models;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Task {
 
@@ -25,25 +26,34 @@ public class Task {
         MEDIUM,
         LOW
     }
+    public enum Status {
+        BACKLOG,
+        DOING,
+        DONE,
+    }
 
     private String taskName;
 
     private String taskDescription;
 
-    private Date startDate;
+//    private Date startDate;
+//
+//    private Date endDate;
 
-    private Date endDate;
+//    private ArrayList<String> comments;
 
-    private ArrayList<String> comments;
-
-    private ArrayList<User> assigned;
+    private List<String> assigned;
 
     private Complexity complexity;
 
     private Size size;
 
     private Emergency emergency;
+
+    private Status status;
     private String projectID;
+
+    private String taskID;
 
     public Size getSize() {
         return size;
@@ -57,16 +67,17 @@ public class Task {
         this.projectID = projectID;
     }
 
-    public Task(String taskName, String taskDescription, Date startDate, Date endDate, ArrayList<String> comments, ArrayList<User> assigned, Complexity complexity, Size size, Emergency emergency, String projectID) {
+    public Task(String taskName, String taskDescription, List<String> assigned, Complexity complexity, Size size, Emergency emergency, Status status, String projectID) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.comments = comments;
+//        this.startDate = startDate;
+//        this.endDate = endDate;
+//        this.comments = comments;
         this.assigned = assigned;
         this.complexity = complexity;
         this.size = size;
         this.emergency = emergency;
+        this.status = status;
         this.projectID = projectID;
     }
     public Task(){}
@@ -87,35 +98,35 @@ public class Task {
         this.taskDescription = taskDescription;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
+//    public Date getStartDate() {
+//        return startDate;
+//    }
+//
+//    public void setStartDate(Date startDate) {
+//        this.startDate = startDate;
+//    }
+//
+//    public Date getEndDate() {
+//        return endDate;
+//    }
+//
+//    public void setEndDate(Date endDate) {
+//        this.endDate = endDate;
+//    }
+//
+//    public ArrayList<String> getComments() {
+//        return comments;
+//    }
+//
+//    public void setComments(ArrayList<String> comments) {
+//        this.comments = comments;
+//    }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public ArrayList<String> getComments() {
-        return comments;
-    }
-
-    public void setComments(ArrayList<String> comments) {
-        this.comments = comments;
-    }
-
-    public ArrayList<User> getAssigned() {
+    public List<String> getAssigned() {
         return assigned;
     }
 
-    public void setAssigned(ArrayList<User> assigned) {
+    public void setAssigned(List<String> assigned) {
         this.assigned = assigned;
     }
 
@@ -172,6 +183,17 @@ public class Task {
             return "Medium";
         return "Low";
     }
+    public Status getStatus(){return this.status;}
+    public void setStatus(Status status){this.status=status;}
+    public String getTaskID() {
+        return taskID;
+    }
+
+    public void setTaskID(String taskID) {
+        this.taskID = taskID;
+    }
+
+
 
 
 

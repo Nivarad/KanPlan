@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.kanplan.Adapters.ProjectAdapter;
 import com.example.kanplan.Interfaces.ProjectDataCallback;
@@ -16,6 +17,7 @@ import com.example.kanplan.Interfaces.RecyclerViewInterface;
 import com.example.kanplan.Models.Project;
 import com.example.kanplan.R;
 import com.example.kanplan.Utils.MySP;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -107,10 +109,29 @@ public class ProjectsActivity extends AppCompatActivity implements RecyclerViewI
 
     @Override
     public void onItemClick(int position) {
+        Project project = storedProjects.get(position);
         Intent intent =new Intent(this,TasksActivity.class);
-        intent.putExtra("projectID",storedProjects.get(position).getProjectName());
+        intent.putExtra("projectID",project.getProjectID());
         Log.d("project clicked", String.valueOf(storedProjects.get(position)));
         startActivity(intent);
 
+    }
+
+    @Override
+    public void onItemLongClick(int position) {
+        // Get the long-pressed item view from the RecyclerView
+        RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(position);
+        if (viewHolder instanceof ProjectAdapter.ProjectHolder) {
+            ProjectAdapter.ProjectHolder projectHolder = (ProjectAdapter.ProjectHolder) viewHolder;
+            Button deleteButton = projectHolder.deleteButton;
+            Button editButton = projectHolder.editButton;
+            if (deleteButton.getVisibility() == View.VISIBLE) {
+                deleteButton.setVisibility(View.GONE);
+                editButton.setVisibility(View.GONE);// Make the button invisible
+            } else {
+                deleteButton.setVisibility(View.VISIBLE);
+                editButton.setVisibility(View.VISIBLE); // Make the button visible
+            }
+        }
     }
 }

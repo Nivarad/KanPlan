@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.kanplan.Interfaces.RecyclerViewInterface;
 import com.example.kanplan.Models.Task;
 import com.example.kanplan.R;
+import com.example.kanplan.Utils.MySP;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
@@ -18,8 +20,11 @@ import java.util.ArrayList;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
 
     private Context context;
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
+
     private final RecyclerViewInterface recyclerViewInterface;
+
+
 
     public TaskAdapter(Context context, ArrayList<Task> tasks, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
@@ -28,17 +33,30 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
     }
 
 
+
     @NonNull
     @Override
     public TaskAdapter.TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new TaskHolder(LayoutInflater.from(context).inflate(R.layout.item_task,parent,false),recyclerViewInterface);
+        return new TaskHolder(LayoutInflater.from(context).inflate(R.layout.item_task, parent, false),recyclerViewInterface);
+
+
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull TaskAdapter.TaskHolder holder, int position) {
+        int new_pos=position;
+
+
         holder.taskName.setText(tasks.get(position).getTaskName());
         holder.taskDescription.setText(tasks.get(position).getTaskDescription());
         holder.taskComplexity.setText(tasks.get(position).getComplexityString());
+        if(tasks.get(position).getAssigned().contains(MySP.getInstance().getEmail())){
+            holder.taskWarning.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.taskWarning.setVisibility(View.INVISIBLE);
+        }
         switch(tasks.get(position).getComplexityString()){
             case "Very Complex":
                 holder.taskComplexity.setBackgroundResource(R.drawable.highlight_asap_vcomplex_vbig);
@@ -84,6 +102,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
             case "Small":
                 holder.taskSize.setBackgroundResource(R.drawable.highlight_low_small_easy);
         }
+
+
+
     }
 
     @Override
@@ -100,20 +121,22 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
         public MaterialTextView taskComplexity;
         public MaterialTextView taskSize;
         public MaterialTextView taskEmergency;
+        public ShapeableImageView taskWarning;
 
 
 
-        public TaskHolder(@NonNull View itemView , RecyclerViewInterface recyclerViewInterface) {
+
+        public TaskHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface ) {
             super(itemView);
 
             findViewsHolder();
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View v) {
                     if(recyclerViewInterface !=null){
                         int position = getAdapterPosition();
-                        if(position!= RecyclerView.NO_POSITION){
+                        if(position!=RecyclerView.NO_POSITION){
                             recyclerViewInterface.onItemClick(position);
                         }
                     }
@@ -123,12 +146,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
         }
 
         public void findViewsHolder(){
-            taskName = itemView.findViewById(R.id.TaskName);
+            taskName = itemView.findViewById(R.id.taskName);
 
-            taskDescription=itemView.findViewById(R.id.TaskDescription);
-            taskComplexity = itemView.findViewById(R.id.TaskComplexity);
-            taskSize = itemView.findViewById(R.id.TaskSize);
-            taskEmergency = itemView.findViewById(R.id.TaskEmergency);
+            taskDescription=itemView.findViewById(R.id.taskDescription);
+            taskComplexity = itemView.findViewById(R.id.taskComplexity);
+            taskSize = itemView.findViewById(R.id.taskSize);
+            taskEmergency = itemView.findViewById(R.id.taskEmergency);
+            taskWarning = itemView.findViewById(R.id.taskWarning);
         }
     }
 }

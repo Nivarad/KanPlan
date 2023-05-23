@@ -58,8 +58,22 @@ public class SignUpActivity extends AppCompatActivity {
                     String lastname = lastnameEditText.getText().toString();
                     signUpUser(email,password,firstname,lastname);
                 }
+
             }
         });
+
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSignInView();
+            }
+        });
+    }
+
+    private void openSignInView() {
+        Intent intent = new Intent(this,SignInActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void signUpUser(String email, String password, String firstname, String lastname) {

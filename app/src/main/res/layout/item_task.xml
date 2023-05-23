@@ -1,142 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/project"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp">
+        android:orientation="horizontal">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:id="@+id/projectImage"
+            android:src="@drawable/task_list_menu_document_svgrepo_com"
+            android:layout_marginRight="10dp" />
+
+
+
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/taskName"
+                android:layout_toEndOf="@id/projectImage"
+                android:textColor="@color/black"
+                android:text="Task Name"
+                android:textSize="20dp"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/taskDescription"
+                android:layout_toEndOf="@id/projectImage"
+                android:textColor="@color/black"
+                android:text="Task Description"
+                />
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/taskComplexity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="complexity"
 
+                    android:paddingHorizontal="8dp"/>
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="10dp"
-                        android:elevation="0dp"
-                        android:backgroundTint="#CCCCCC">
+                <Space
+                    android:layout_width="8dp"
+                    android:layout_height="wrap_content" />
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/taskSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Size"
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center">
+                    android:paddingHorizontal="8dp"/>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                >
+                <Space
+                    android:layout_width="8dp"
+                    android:layout_height="wrap_content" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/taskEmergency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Emergency"
 
-                                <com.google.android.material.imageview.ShapeableImageView
-                                    android:layout_width="35dp"
-                                    android:layout_height="35dp"
-                                    android:layout_marginTop="25dp"
-                                    android:src="@drawable/ic_projects"/>
+                    android:paddingHorizontal="8dp"/>
 
-                                <com.google.android.material.textview.MaterialTextView
-                                    android:id="@+id/TaskName"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Add login page"
-                                    android:layout_marginTop="10dp"
-                                    android:textColor="#595858"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"/>
-
-                                <com.google.android.material.textview.MaterialTextView
-                                    android:id="@+id/TaskDescription"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Description: need to add a login page"
-                                    android:layout_marginTop="10dp"
-                                    android:textColor="#595858"
-                                    android:textSize="14sp"/>
-
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
-
-                                    <com.google.android.material.textview.MaterialTextView
-                                        android:id="@+id/TaskComplexity"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="complexity"
-                                        android:background="@drawable/highlight_asap_vcomplex_vbig"
-                                        android:paddingHorizontal="8dp"/>
-
-                                    <Space
-                                        android:layout_width="8dp"
-                                        android:layout_height="wrap_content" />
-
-                                    <com.google.android.material.textview.MaterialTextView
-                                        android:id="@+id/TaskSize"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Size"
-                                        android:background="@drawable/highlight_low_small_easy"
-                                        android:paddingHorizontal="8dp"/>
-
-                                    <Space
-                                        android:layout_width="8dp"
-                                        android:layout_height="wrap_content" />
-                                    <com.google.android.material.textview.MaterialTextView
-                                        android:id="@+id/TaskEmergency"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Emergency"
-                                        android:background="@drawable/highlight_high_complex_big"
-                                        android:paddingHorizontal="8dp"/>
-
-                                    <Space
-                                        android:layout_width="8dp"
-                                        android:layout_height="wrap_content" />
-                                </LinearLayout>
-
-
-
-
-
-
-
-
-                            </LinearLayout>
-
-
-                        </RelativeLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                </LinearLayout>
-
-
-
-
+                <Space
+                    android:layout_width="8dp"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
+
+
+
+
+
         </LinearLayout>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/taskWarning"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/baseline_warning_24"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"/>
 
-    </ScrollView>
 
-</LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/project"
+        android:layout_marginTop="10dp"
+        android:background="#DAD8D8"/>
+
+
+
+
+</RelativeLayout>

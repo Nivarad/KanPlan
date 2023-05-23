@@ -65,7 +65,7 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/LBL_TaskView_descriptionContent"
+        android:id="@+id/LBL_ProjectView_descriptionContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -139,7 +139,7 @@
         android:id="@+id/LBL_CreateProject_Team"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/LBL_TaskView_descriptionContent"
+        android:layout_below="@id/LBL_ProjectView_descriptionContent"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:textStyle="bold"

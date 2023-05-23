@@ -6,6 +6,8 @@
     android:gravity="center"
     tools:context=".Fragments.BacklogFragment">
 
+
+
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_Backlog_recycler"

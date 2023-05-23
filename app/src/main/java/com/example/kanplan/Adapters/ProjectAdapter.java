@@ -6,6 +6,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.kanplan.Interfaces.RecyclerViewInterface;
 import com.example.kanplan.Models.Project;
 import com.example.kanplan.R;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
@@ -106,6 +108,8 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectH
         public MaterialTextView projectComplexity;
         public MaterialTextView projectSize;
         public MaterialTextView projectEmergency;
+        public Button deleteButton;
+        public Button editButton;
 
 
 
@@ -113,6 +117,8 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectH
             super(itemView);
 
             findViewsHolder();
+            editButton.setVisibility(View.GONE);
+            deleteButton.setVisibility(View.GONE);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -126,6 +132,20 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectH
                 }
             });
 
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if (recyclerViewInterface != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            recyclerViewInterface.onItemLongClick(position);
+                            return true; // Return true to consume the long click event
+                        }
+                    }
+                    return false;
+                }
+            });
+
         }
 
         public void findViewsHolder(){
@@ -135,6 +155,8 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectH
             projectComplexity = itemView.findViewById(R.id.ProjectComplexity);
             projectSize = itemView.findViewById(R.id.ProjectSize);
             projectEmergency = itemView.findViewById(R.id.ProjectEmergency);
+            editButton = itemView.findViewById(R.id.projectEditButton);
+            deleteButton = itemView.findViewById(R.id.projectDeleteButton);
         }
     }
 }
