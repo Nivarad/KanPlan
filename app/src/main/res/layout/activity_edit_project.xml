@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.EditProjectActivity">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/Image_EditProject_backArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/Image_EditProject_saveIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_save_24"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"/>
+
+    <EditText
+        android:id="@+id/editText_EditProject_ProjectName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Image_EditProject_backArrow"
+        android:layout_marginTop="10dp"
+        android:hint="Project Name"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_marginHorizontal="20dp"
+        />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/LBL_CreateProject_Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText_EditProject_ProjectName"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="Description"/>
+
+    <RelativeLayout
+        android:id="@+id/LBL_TASK_descriptionLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LBL_CreateProject_Description">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
+
+        <View
+            android:layout_marginLeft="250dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/black"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/LBL_ProjectView_descriptionContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/LBL_TASK_descriptionLine"
+        android:layout_margin="20dp">
+
+        <EditText
+            android:id="@+id/editText_EditProject_Description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Project Description"
+            android:layout_marginBottom="20dp"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <Spinner
+                android:id="@+id/spinner_editProject_Complexity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/LBL_TaskView_Complexity"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="complexity"-->
+            <!--                android:background="@drawable/highlight_asap_vcomplex_vbig"-->
+            <!--                android:paddingHorizontal="8dp"/>-->
+
+
+
+            <Spinner
+                android:id="@+id/spinner_editProject_Size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/LBL_TaskView_Size"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Size"-->
+            <!--                android:background="@drawable/highlight_low_small_easy"-->
+            <!--                android:paddingHorizontal="8dp"/>-->
+
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/LBL_TaskView_Emergency"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Emergency"-->
+            <!--                android:background="@drawable/highlight_high_complex_big"-->
+            <!--                android:paddingHorizontal="8dp"/>-->
+
+            <Spinner
+                android:id="@+id/spinner_editProject_Emergency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/LBL_editProject_Team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LBL_ProjectView_descriptionContent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="Team"/>
+
+    <RelativeLayout
+        android:id="@+id/LBL_CreateProject_CommentsLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LBL_editProject_Team">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
+
+        <View
+            android:layout_marginLeft="250dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/black"/>
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/editText_EditProject_TeamContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LBL_CreateProject_CommentsLine"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

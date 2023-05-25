@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.kanplan.Adapters.TaskAdapter;
 import com.example.kanplan.Interfaces.OnItemClickListener;
@@ -95,6 +96,22 @@ public class DoneFragment extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onItemLongClick(int position) {
+        // Get the long-pressed item view from the RecyclerView
+        RecyclerView.ViewHolder viewHolder = doneRecycler.findViewHolderForAdapterPosition(position);
+        if (viewHolder instanceof TaskAdapter.TaskHolder) {
+            TaskAdapter.TaskHolder TaskHolder = (TaskAdapter.TaskHolder) viewHolder;
+            Button deleteButton = TaskHolder.deleteButton;
+            Button editButton = TaskHolder.editButton;
+            if (deleteButton.getVisibility() == View.VISIBLE) {
+                deleteButton.setVisibility(View.GONE);
+                editButton.setVisibility(View.GONE);// Make the button invisible
+            } else {
+                deleteButton.setVisibility(View.VISIBLE);
+                editButton.setVisibility(View.VISIBLE); // Make the button visible
+
+
+            }
+        }
 
     }
 }

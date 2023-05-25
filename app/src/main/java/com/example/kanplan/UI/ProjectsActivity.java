@@ -131,6 +131,8 @@ public class ProjectsActivity extends AppCompatActivity implements RecyclerViewI
             } else {
                 deleteButton.setVisibility(View.VISIBLE);
                 editButton.setVisibility(View.VISIBLE); // Make the button visible
+
+
             }
         }
     }

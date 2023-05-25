@@ -98,30 +98,6 @@ public class Task {
         this.taskDescription = taskDescription;
     }
 
-//    public Date getStartDate() {
-//        return startDate;
-//    }
-//
-//    public void setStartDate(Date startDate) {
-//        this.startDate = startDate;
-//    }
-//
-//    public Date getEndDate() {
-//        return endDate;
-//    }
-//
-//    public void setEndDate(Date endDate) {
-//        this.endDate = endDate;
-//    }
-//
-//    public ArrayList<String> getComments() {
-//        return comments;
-//    }
-//
-//    public void setComments(ArrayList<String> comments) {
-//        this.comments = comments;
-//    }
-
     public List<String> getAssigned() {
         return assigned;
     }
@@ -141,6 +117,8 @@ public class Task {
     public Size getTaskSize() {
         return size;
     }
+
+    public void setTaskSize(Size size){this.size=size;}
 
     public void setSize(Size size) {
         this.size = size;

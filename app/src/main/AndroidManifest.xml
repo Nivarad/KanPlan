@@ -13,6 +13,14 @@
         android:theme="@style/Theme.KanPlan"
         tools:targetApi="31">
         <activity
+            android:name=".EditTaskActivity"
+            android:exported="false"
+            android:label="@string/title_activity_edit_task"
+            android:theme="@style/Theme.KanPlan.NoActionBar" />
+        <activity
+            android:name=".UI.EditProjectActivity"
+            android:exported="false" />
+        <activity
             android:name=".UI.CreateTaskActivity"
             android:exported="false" />
         <activity

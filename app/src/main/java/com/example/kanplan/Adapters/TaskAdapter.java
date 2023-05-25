@@ -1,9 +1,11 @@
 package com.example.kanplan.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,9 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.kanplan.Interfaces.RecyclerViewInterface;
 import com.example.kanplan.Models.Task;
 import com.example.kanplan.R;
+import com.example.kanplan.SignalGenerator;
 import com.example.kanplan.Utils.MySP;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -37,7 +42,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
     @NonNull
     @Override
     public TaskAdapter.TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new TaskHolder(LayoutInflater.from(context).inflate(R.layout.item_task, parent, false),recyclerViewInterface);
+        return new TaskHolder(LayoutInflater.from(context).inflate(R.layout.item_task, parent, false),tasks,recyclerViewInterface);
 
 
 
@@ -107,6 +112,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
 
     }
 
+
     @Override
     public int getItemCount() {
         return tasks.size();
@@ -123,10 +129,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
         public MaterialTextView taskEmergency;
         public ShapeableImageView taskWarning;
 
+        public Button editButton;
+
+        public Button deleteButton;
 
 
 
-        public TaskHolder(@NonNull View itemView,RecyclerViewInterface recyclerViewInterface ) {
+
+        public TaskHolder(@NonNull View itemView,final ArrayList<Task> tasks, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
             findViewsHolder();
@@ -134,15 +144,66 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(recyclerViewInterface !=null){
+                    if (recyclerViewInterface != null) {
                         int position = getAdapterPosition();
-                        if(position!=RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             recyclerViewInterface.onItemClick(position);
                         }
                     }
                 }
             });
 
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (recyclerViewInterface != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            recyclerViewInterface.onItemLongClick(position);
+                            return true; // Return true to consume the long click event
+                        }
+                    }
+                    return false;
+                }
+            });
+
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        // Get the task ID
+                        String taskID = tasks.get(position).getTaskID();
+
+                        // Create an intent to start the EditTaskActivity
+//                        Intent intent = new Intent(itemView.getContext(), EditTaskActivity.class);
+//                        intent.putExtra("taskID", taskID);
+//                        itemView.getContext().startActivity(intent);
+                    }
+                }
+            });
+
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Task task = tasks.get(position);
+                        String taskID = task.getTaskID();
+                        String projectID = task.getProjectID();
+
+                        // Remove the task from Firebase
+                        DatabaseReference taskRef = FirebaseDatabase.getInstance().getReference("tasks")
+                                .child(taskID);
+                        taskRef.removeValue();
+                        SignalGenerator.getInstance().toast("Task deleted Successfully",1);
+
+                    }
+                }
+            });
+
+            editButton.setVisibility(View.GONE);
+            deleteButton.setVisibility(View.GONE);
         }
 
         public void findViewsHolder(){
@@ -153,6 +214,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
             taskSize = itemView.findViewById(R.id.taskSize);
             taskEmergency = itemView.findViewById(R.id.taskEmergency);
             taskWarning = itemView.findViewById(R.id.taskWarning);
+            editButton = itemView.findViewById(R.id.taskEditButton);
+
+            deleteButton =itemView.findViewById(R.id.taskDeleteButton);
         }
     }
 }

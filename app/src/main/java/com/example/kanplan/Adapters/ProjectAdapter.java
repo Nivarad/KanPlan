@@ -3,6 +3,7 @@ package com.example.kanplan.Adapters;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.kanplan.Interfaces.RecyclerViewInterface;
 import com.example.kanplan.Models.Project;
 import com.example.kanplan.R;
+import com.example.kanplan.SignalGenerator;
+import com.example.kanplan.UI.EditProjectActivity;
+import com.example.kanplan.UI.HomeActivity;
+import com.example.kanplan.UI.ProjectsActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -23,7 +34,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectH
 
 
     private Context context;
-    ArrayList<Project> projects;
+    static ArrayList<Project> projects;
 
     private final RecyclerViewInterface recyclerViewInterface;
 
@@ -132,6 +143,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectH
                 }
             });
 
+
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -145,6 +157,74 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectH
                     return false;
                 }
             });
+
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DeleteProduct();
+                }
+            });
+
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openEditProductActivity();
+                }
+            });
+
+        }
+
+        private void openEditProductActivity() {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                // Retrieve the project ID
+                String projectID = projects.get(position).getProjectID();
+                Intent intent = new Intent(itemView.getContext(), EditProjectActivity.class);
+                intent.putExtra("projectID", projectID);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                itemView.getContext().startActivity(intent);
+            }
+        }
+
+        private void DeleteProduct() {
+//            Intent intent = new Intent(itemView.getContext(), HomeActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            itemView.getContext().startActivity(intent);
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                // Retrieve the project ID
+                String projectID = projects.get(position).getProjectID();
+
+                // Construct the Firebase database reference for tasks
+                DatabaseReference tasksRef = FirebaseDatabase.getInstance().getReference("tasks");
+
+                // Query the tasks with the matching project ID
+                Query query = tasksRef.orderByChild("projectID").equalTo(projectID);
+
+                // Remove the tasks from Firebase
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
+                            taskSnapshot.getRef().removeValue();
+
+                        }
+                        SignalGenerator.getInstance().toast("Project deleted successfully",1);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle error
+                    }
+                });
+
+                // Construct the Firebase database reference for the project
+                DatabaseReference projectRef = FirebaseDatabase.getInstance().getReference("projects").child(projectID);
+
+                // Delete the project from Firebase
+                projectRef.removeValue();
+            }
 
         }
 

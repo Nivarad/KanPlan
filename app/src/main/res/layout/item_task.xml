@@ -101,12 +101,40 @@
 
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/taskButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/project">
+
+
+        <Button
+            android:id="@+id/taskDeleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:textSize="12sp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="@color/design_default_color_error"/>
+
+        <Button
+            android:id="@+id/taskEditButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/project"
+            android:text="Edit"
+            android:textSize="12sp"
+            android:backgroundTint="#FFE569"/>
+
+    </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@id/project"
+        android:layout_below="@id/taskButtons"
         android:layout_marginTop="10dp"
         android:background="#DAD8D8"/>
 
