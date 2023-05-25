@@ -52,6 +52,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectH
 
     @Override
     public void onBindViewHolder(@NonNull ProjectHolder holder, int position) {
+        holder.leaderEmail = projects.get(position).getProjectManager().getEmail();
         holder.projectName.setText(projects.get(position).getProjectName());
         holder.projectDescription.setText(projects.get(position).getDescription());
         holder.projectLeader.setText(projects.get(position).getProjectManager().getUserName());
@@ -121,6 +122,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectH
         public MaterialTextView projectEmergency;
         public Button deleteButton;
         public Button editButton;
+        public String leaderEmail;
 
 
 

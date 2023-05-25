@@ -12,23 +12,25 @@ import com.example.kanplan.Fragments.DoneFragment;
 public class ViewPagerTasksAdapter extends FragmentPagerAdapter {
 
     private String projectID;
+    private String projectManagerEmail;
 
-    public ViewPagerTasksAdapter(@NonNull FragmentManager fm, String projectID) {
+    public ViewPagerTasksAdapter(@NonNull FragmentManager fm, String projectID,String projectManagerEmail) {
         super(fm);
         this.projectID=projectID;
+        this.projectManagerEmail=projectManagerEmail;
 
     }
 
     @Override
     public Fragment getItem(int position) {
         if(position ==0){
-            return new BacklogFragment(projectID);
+            return new BacklogFragment(projectID,projectManagerEmail);
         }
         else if(position==1){
-            return new DoingFragment(projectID);
+            return new DoingFragment(projectID,projectManagerEmail);
         }
         else{
-            return new DoneFragment(projectID);
+            return new DoneFragment(projectID,projectManagerEmail);
         }
     }
 

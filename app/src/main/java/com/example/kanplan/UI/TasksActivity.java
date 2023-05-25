@@ -19,6 +19,7 @@ public class TasksActivity extends AppCompatActivity {
     private ShapeableImageView backArrow;
     private ShapeableImageView addTask;
     public static String projectID;
+    public static String projectManagerEmail;
 
     ViewPagerTasksAdapter adapter;
     @Override
@@ -29,10 +30,11 @@ public class TasksActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             projectID = intent.getStringExtra("projectID");
+            projectManagerEmail = intent.getStringExtra("projectManager");
         }
         findViews();
 
-        adapter = new ViewPagerTasksAdapter(getSupportFragmentManager(),projectID);
+        adapter = new ViewPagerTasksAdapter(getSupportFragmentManager(),projectID,projectManagerEmail);
         viewPager.setAdapter(adapter);
 
         tab.setupWithViewPager(viewPager);

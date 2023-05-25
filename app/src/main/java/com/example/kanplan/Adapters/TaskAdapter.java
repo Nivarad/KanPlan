@@ -14,6 +14,7 @@ import com.example.kanplan.Interfaces.RecyclerViewInterface;
 import com.example.kanplan.Models.Task;
 import com.example.kanplan.R;
 import com.example.kanplan.SignalGenerator;
+import com.example.kanplan.UI.EditTaskActivity;
 import com.example.kanplan.Utils.MySP;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
@@ -174,11 +175,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
                     if (position != RecyclerView.NO_POSITION) {
                         // Get the task ID
                         String taskID = tasks.get(position).getTaskID();
+                        String projectID = tasks.get(position).getProjectID();
 
-                        // Create an intent to start the EditTaskActivity
-//                        Intent intent = new Intent(itemView.getContext(), EditTaskActivity.class);
-//                        intent.putExtra("taskID", taskID);
-//                        itemView.getContext().startActivity(intent);
+                         //Create an intent to start the EditTaskActivity
+                        Intent intent = new Intent(itemView.getContext(), EditTaskActivity.class);
+                        intent.putExtra("taskID", taskID);
+                        intent.putExtra("projectID",projectID);
+                        itemView.getContext().startActivity(intent);
                     }
                 }
             });

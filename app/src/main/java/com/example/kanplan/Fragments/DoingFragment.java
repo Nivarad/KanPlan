@@ -14,18 +14,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.kanplan.Adapters.TaskAdapter;
-import com.example.kanplan.Interfaces.OnItemClickListener;
 import com.example.kanplan.Interfaces.RecyclerViewInterface;
 import com.example.kanplan.Interfaces.TaskDataCallback;
 import com.example.kanplan.Models.Task;
 import com.example.kanplan.R;
+import com.example.kanplan.SignalGenerator;
 import com.example.kanplan.UI.TaskActivity;
+import com.example.kanplan.Utils.MySP;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.example.kanplan.Data.DataManager.Status;
 import java.util.ArrayList;
 
 
@@ -34,11 +35,14 @@ public class DoingFragment extends Fragment implements RecyclerViewInterface {
     private RecyclerView doingRecycler;
     private ArrayList<Task> storedTasks = new ArrayList<>();
     private String projectID;
+    private String projectManagerEmail;
     public DoingFragment() {
         // Required empty public constructor
     }
-    public DoingFragment(String projectID) {
+    public DoingFragment(String projectID,String projectManagerEmail) {
         this.projectID=projectID;
+        this.projectManagerEmail=projectManagerEmail;
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,7 +74,7 @@ public class DoingFragment extends Fragment implements RecyclerViewInterface {
                 ArrayList<Task> tasks = new ArrayList<>();
                 for (DataSnapshot projectSnapshot : dataSnapshot.getChildren()) {
                     Task task = projectSnapshot.getValue(Task.class);
-                    if (task.getProjectID().equals(projectID) && task.getStatus() ==Task.Status.DOING) {
+                    if (task.getProjectID().equals(projectID) && task.getStatus() ==Status.DOING) {
                         tasks.add(task);
                         storedTasks.add(task);
 
@@ -103,14 +107,21 @@ public class DoingFragment extends Fragment implements RecyclerViewInterface {
             TaskAdapter.TaskHolder TaskHolder = (TaskAdapter.TaskHolder) viewHolder;
             Button deleteButton = TaskHolder.deleteButton;
             Button editButton = TaskHolder.editButton;
-            if (deleteButton.getVisibility() == View.VISIBLE) {
+            if(!MySP.getInstance().getEmail().equals(projectManagerEmail)) {
                 deleteButton.setVisibility(View.GONE);
                 editButton.setVisibility(View.GONE);// Make the button invisible
-            } else {
-                deleteButton.setVisibility(View.VISIBLE);
-                editButton.setVisibility(View.VISIBLE); // Make the button visible
+                SignalGenerator.getInstance().toast("You are not project Manager",0);
+            }
+            else{
+                if (deleteButton.getVisibility() == View.VISIBLE) {
+                    deleteButton.setVisibility(View.GONE);
+                    editButton.setVisibility(View.GONE);// Make the button invisible
+                } else {
+                    deleteButton.setVisibility(View.VISIBLE);
+                    editButton.setVisibility(View.VISIBLE); // Make the button visible
 
 
+                }
             }
         }
 

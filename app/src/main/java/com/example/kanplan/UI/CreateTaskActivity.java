@@ -21,7 +21,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import com.example.kanplan.Data.DataManager.Emergency;
+import com.example.kanplan.Data.DataManager.Size;
+import com.example.kanplan.Data.DataManager.Complexity;
+import com.example.kanplan.Data.DataManager.Status;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,58 +109,58 @@ public class CreateTaskActivity extends AppCompatActivity {
     }
 
     private void addTask(String name, String description, String complexity, String emergency, String size, String status, List<String> emails) {
-        Task.Complexity complex = null;
-        Task.Size siz=null;
-        Task.Emergency emerg=null;
-        Task.Status stat = null;
+        Complexity complex = null;
+        Size siz=null;
+        Emergency emerg=null;
+        Status stat = null;
         switch(complexity){
             case "Easy":
-                complex= Task.Complexity.EASY;
+                complex= Complexity.EASY;
                 break;
             case "Regular":
-                complex=Task.Complexity.REGULAR;
+                complex=Complexity.REGULAR;
                 break;
             case "Complex":
-                complex=Task.Complexity.COMPLEX;
+                complex=Complexity.COMPLEX;
                 break;
             case "Very Complex":
-                complex=Task.Complexity.VERY_COMPLEX;
+                complex=Complexity.VERY_COMPLEX;
         }
         switch(size){
             case "Small":
-                siz= Task.Size.SMALL;
+                siz= Size.SMALL;
                 break;
             case "Regular":
-                siz=Task.Size.REGULAR;
+                siz=Size.REGULAR;
                 break;
             case "Big":
-                siz=Task.Size.BIG;
+                siz=Size.BIG;
                 break;
             case "Very big":
-                siz=Task.Size.VERY_BIG;
+                siz=Size.VERY_BIG;
         }
         switch(emergency){
             case "Low":
-                emerg= Task.Emergency.LOW;
+                emerg= Emergency.LOW;
                 break;
             case "Medium":
-                emerg=Task.Emergency.MEDIUM;
+                emerg=Emergency.MEDIUM;
                 break;
             case "High":
-                emerg=Task.Emergency.HIGH;
+                emerg=Emergency.HIGH;
                 break;
             case "ASAP":
-                emerg=Task.Emergency.ASAP;
+                emerg=Emergency.ASAP;
         }
         switch(status){
             case "Backlog":
-                stat= Task.Status.BACKLOG;
+                stat= Status.BACKLOG;
                 break;
             case "Doing":
-                stat=Task.Status.DOING;
+                stat=Status.DOING;
                 break;
             case "Done":
-                stat=Task.Status.DONE;
+                stat=Status.DONE;
                 break;
         }
 //        if(!emails.contains(MySP.getInstance().getEmail()))

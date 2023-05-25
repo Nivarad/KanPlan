@@ -19,15 +19,17 @@ import com.example.kanplan.Interfaces.RecyclerViewInterface;
 import com.example.kanplan.Interfaces.TaskDataCallback;
 import com.example.kanplan.Models.Task;
 import com.example.kanplan.R;
+import com.example.kanplan.SignalGenerator;
 import com.example.kanplan.UI.HomeActivity;
 import com.example.kanplan.UI.TaskActivity;
+import com.example.kanplan.Utils.MySP;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.example.kanplan.Data.DataManager.Status;
 import java.util.ArrayList;
 
 
@@ -37,12 +39,14 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
     private ArrayList<Task> storedTasks = new ArrayList<>();
 
     private String projectID;
+    private String projectManagerEmail;
     public BacklogFragment() {
         // Required empty public constructor
     }
-    public BacklogFragment(String projectID) {
+    public BacklogFragment(String projectID,String projectManagerEmail) {
         // Required empty public constructor
         this.projectID=projectID;
+        this.projectManagerEmail=projectManagerEmail;
     }
 
     @Override
@@ -80,7 +84,7 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
                 ArrayList<Task> tasks = new ArrayList<>();
                 for (DataSnapshot projectSnapshot : dataSnapshot.getChildren()) {
                     Task task = projectSnapshot.getValue(Task.class);
-                    if (task.getProjectID().equals(projectID) && task.getStatus() ==Task.Status.BACKLOG) {
+                    if (task.getProjectID().equals(projectID) && task.getStatus() ==Status.BACKLOG) {
                         tasks.add(task);
                         storedTasks.add(task);
 
@@ -113,15 +117,23 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
             TaskAdapter.TaskHolder TaskHolder = (TaskAdapter.TaskHolder) viewHolder;
             Button deleteButton = TaskHolder.deleteButton;
             Button editButton = TaskHolder.editButton;
-            if (deleteButton.getVisibility() == View.VISIBLE) {
+            if(!MySP.getInstance().getEmail().equals(projectManagerEmail)) {
                 deleteButton.setVisibility(View.GONE);
                 editButton.setVisibility(View.GONE);// Make the button invisible
-            } else {
-                deleteButton.setVisibility(View.VISIBLE);
-                editButton.setVisibility(View.VISIBLE); // Make the button visible
-
-
+                SignalGenerator.getInstance().toast("You are not project Manager",0);
             }
+            else{
+                if (deleteButton.getVisibility() == View.VISIBLE) {
+                    deleteButton.setVisibility(View.GONE);
+                    editButton.setVisibility(View.GONE);// Make the button invisible
+                } else {
+                    deleteButton.setVisibility(View.VISIBLE);
+                    editButton.setVisibility(View.VISIBLE); // Make the button visible
+
+
+                }
+            }
+
         }
 
     }

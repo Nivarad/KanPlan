@@ -22,7 +22,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.example.kanplan.Data.DataManager.Emergency;
+import com.example.kanplan.Data.DataManager.Size;
+import com.example.kanplan.Data.DataManager.Complexity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -60,6 +62,7 @@ public class EditProjectActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             projectID = intent.getStringExtra("projectID");
+
         }
 
         findViews();
@@ -108,47 +111,47 @@ public class EditProjectActivity extends AppCompatActivity {
     }
 
     private void saveProject(String name, String description, String complexity, String emergency, String size, List<String> emails) {
-        Project.Complexity complex = null;
-        Project.Size siz=null;
-        Project.Emergency emerg=null;
+        Complexity complex = null;
+        Size siz=null;
+        Emergency emerg=null;
         switch(complexity){
             case "Easy":
-                complex= Project.Complexity.EASY;
+                complex= Complexity.EASY;
                 break;
             case "Regular":
-                complex=Project.Complexity.REGULAR;
+                complex=Complexity.REGULAR;
                 break;
             case "Complex":
-                complex=Project.Complexity.COMPLEX;
+                complex=Complexity.COMPLEX;
                 break;
             case "Very Complex":
-                complex=Project.Complexity.VERY_COMPLEX;
+                complex=Complexity.VERY_COMPLEX;
         }
         switch(size){
             case "Small":
-                siz= Project.Size.SMALL;
+                siz= Size.SMALL;
                 break;
             case "Regular":
-                siz=Project.Size.REGULAR;
+                siz=Size.REGULAR;
                 break;
             case "Big":
-                siz=Project.Size.BIG;
+                siz=Size.BIG;
                 break;
             case "Very big":
-                siz=Project.Size.VERY_BIG;
+                siz=Size.VERY_BIG;
         }
         switch(emergency){
             case "Low":
-                emerg= Project.Emergency.LOW;
+                emerg= Emergency.LOW;
                 break;
             case "Medium":
-                emerg=Project.Emergency.MEDIUM;
+                emerg=Emergency.MEDIUM;
                 break;
             case "High":
-                emerg=Project.Emergency.HIGH;
+                emerg=Emergency.HIGH;
                 break;
             case "ASAP":
-                emerg=Project.Emergency.ASAP;
+                emerg=Emergency.ASAP;
         }
         if(!emails.contains(MySP.getInstance().getEmail()))
             emails.add(MySP.getInstance().getEmail());

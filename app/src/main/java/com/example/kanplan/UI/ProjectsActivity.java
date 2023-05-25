@@ -16,6 +16,7 @@ import com.example.kanplan.Interfaces.ProjectDataCallback;
 import com.example.kanplan.Interfaces.RecyclerViewInterface;
 import com.example.kanplan.Models.Project;
 import com.example.kanplan.R;
+import com.example.kanplan.SignalGenerator;
 import com.example.kanplan.Utils.MySP;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -112,6 +113,7 @@ public class ProjectsActivity extends AppCompatActivity implements RecyclerViewI
         Project project = storedProjects.get(position);
         Intent intent =new Intent(this,TasksActivity.class);
         intent.putExtra("projectID",project.getProjectID());
+        intent.putExtra("projectManager",project.getProjectManager().getEmail());
         Log.d("project clicked", String.valueOf(storedProjects.get(position)));
         startActivity(intent);
 
@@ -125,12 +127,19 @@ public class ProjectsActivity extends AppCompatActivity implements RecyclerViewI
             ProjectAdapter.ProjectHolder projectHolder = (ProjectAdapter.ProjectHolder) viewHolder;
             Button deleteButton = projectHolder.deleteButton;
             Button editButton = projectHolder.editButton;
-            if (deleteButton.getVisibility() == View.VISIBLE) {
+            if(!MySP.getInstance().getEmail().equals(projectHolder.leaderEmail)) {
                 deleteButton.setVisibility(View.GONE);
                 editButton.setVisibility(View.GONE);// Make the button invisible
-            } else {
-                deleteButton.setVisibility(View.VISIBLE);
-                editButton.setVisibility(View.VISIBLE); // Make the button visible
+                SignalGenerator.getInstance().toast("You are not project Manager",0);
+            }
+            else{
+                if (deleteButton.getVisibility() == View.VISIBLE) {
+                    deleteButton.setVisibility(View.GONE);
+                    editButton.setVisibility(View.GONE);// Make the button invisible
+                } else {
+                    deleteButton.setVisibility(View.VISIBLE);
+                    editButton.setVisibility(View.VISIBLE); // Make the button visible
+                }
 
 
             }

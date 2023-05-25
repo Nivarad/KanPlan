@@ -1,30 +1,16 @@
 package com.example.kanplan.Models;
 
+import com.example.kanplan.Data.DataManager;
+
 import java.util.ArrayList;
 import java.util.List;
+import com.example.kanplan.Data.DataManager.Emergency;
+import com.example.kanplan.Data.DataManager.Size;
+import com.example.kanplan.Data.DataManager.Complexity;
 
 public class Project {
 
-    public enum Complexity {
-        VERY_COMPLEX,
-        COMPLEX,
-        REGULAR,
-        EASY
-    }
 
-    public enum Size {
-        VERY_BIG,
-        BIG,
-        REGULAR,
-        SMALL
-    }
-
-    public enum Emergency {
-        ASAP,
-        HIGH,
-        MEDIUM,
-        LOW
-    }
 
     private String projectName;
 
@@ -36,7 +22,7 @@ public class Project {
 
 
 
-    private Complexity complexity;
+    private DataManager.Complexity complexity;
 
     private Size size;
 

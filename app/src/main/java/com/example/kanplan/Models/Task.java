@@ -1,46 +1,17 @@
 package com.example.kanplan.Models;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
+import com.example.kanplan.Data.DataManager.Emergency;
+import com.example.kanplan.Data.DataManager.Size;
+import com.example.kanplan.Data.DataManager.Complexity;
+import com.example.kanplan.Data.DataManager.Status;
 public class Task {
 
-    public enum Complexity {
-        VERY_COMPLEX,
-        COMPLEX,
-        REGULAR,
-        EASY
-    }
 
-    public enum Size {
-        VERY_BIG,
-        BIG,
-        REGULAR,
-        SMALL
-    }
-
-    public enum Emergency {
-        ASAP,
-        HIGH,
-        MEDIUM,
-        LOW
-    }
-    public enum Status {
-        BACKLOG,
-        DOING,
-        DONE,
-    }
 
     private String taskName;
 
     private String taskDescription;
-
-//    private Date startDate;
-//
-//    private Date endDate;
-
-//    private ArrayList<String> comments;
 
     private List<String> assigned;
 
@@ -70,9 +41,6 @@ public class Task {
     public Task(String taskName, String taskDescription, List<String> assigned, Complexity complexity, Size size, Emergency emergency, Status status, String projectID) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
-//        this.startDate = startDate;
-//        this.endDate = endDate;
-//        this.comments = comments;
         this.assigned = assigned;
         this.complexity = complexity;
         this.size = size;
@@ -132,36 +100,47 @@ public class Task {
         this.emergency = emergency;
     }
     public String getComplexityString() {
-        if(this.complexity == Task.Complexity.COMPLEX)
+        if(this.complexity == Complexity.COMPLEX)
             return "Complex";
-        if(this.complexity == Task.Complexity.VERY_COMPLEX)
+        if(this.complexity == Complexity.VERY_COMPLEX)
             return "Very Complex";
-        if(this.complexity == Task.Complexity.REGULAR)
+        if(this.complexity == Complexity.REGULAR)
             return "Regular";
         return "Easy";
     }
     public String getSizeString() {
 
-        if(this.size == Task.Size.VERY_BIG)
+        if(this.size == Size.VERY_BIG)
             return "Very Big";
-        if(this.size == Task.Size.BIG)
+        if(this.size == Size.BIG)
             return "Big";
-        if(this.size == Task.Size.REGULAR)
+        if(this.size == Size.REGULAR)
             return "Regular";
         return "Small";
     }
 
     public String getEmergencyString() {
 
-        if(this.emergency == Task.Emergency.ASAP)
+        if(this.emergency == Emergency.ASAP)
             return "ASAP";
-        if(this.emergency == Task.Emergency.HIGH)
+        if(this.emergency == Emergency.HIGH)
             return "High";
-        if(this.emergency == Task.Emergency.MEDIUM)
+        if(this.emergency == Emergency.MEDIUM)
             return "Medium";
         return "Low";
     }
     public Status getStatus(){return this.status;}
+    public String getStatusString(){
+        if(this.status == Status.BACKLOG)
+            return "Backlog";
+        if(this.status == Status.DOING)
+            return "Doing";
+        if(this.status == Status.DONE)
+            return "Done";
+        else
+            return "";
+
+    }
     public void setStatus(Status status){this.status=status;}
     public String getTaskID() {
         return taskID;
