@@ -3,20 +3,22 @@ package com.example.kanplan.Models;
 public class Comment {
 
 
-    private String name;
+    private String commentWriterName;
     private String commentText;
+    private String commentTitle;
 
     public Comment(){}
-    public Comment(String name,String commentText){
-        this.name =name;
+    public Comment(String commentWriterName,String commentText,String commentTitle){
+        this.commentWriterName =commentWriterName;
         this.commentText=commentText;
+        this.commentTitle=commentTitle;
     }
-    public String getName() {
-        return name;
+    public String getCommentWriterName() {
+        return commentWriterName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCommentWriterName(String name) {
+        this.commentWriterName = name;
     }
 
     public String getCommentText() {
@@ -25,6 +27,13 @@ public class Comment {
 
     public void setCommentText(String commentText) {
         this.commentText = commentText;
+    }
+    public String getCommentTitle() {
+        return commentTitle;
+    }
+
+    public void setCommentTitle(String commentTitle) {
+        this.commentTitle = commentTitle;
     }
 
 }

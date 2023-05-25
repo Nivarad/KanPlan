@@ -1,5 +1,6 @@
 package com.example.kanplan.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.example.kanplan.Data.DataManager.Emergency;
 import com.example.kanplan.Data.DataManager.Size;
@@ -26,6 +27,24 @@ public class Task {
 
     private String taskID;
 
+
+    private List<Comment> comments;
+
+
+
+    public Task(String taskName, String taskDescription, List<String> assigned, Complexity complexity, Size size, Emergency emergency, Status status, String projectID) {
+        this.taskName = taskName;
+        this.taskDescription = taskDescription;
+        this.assigned = assigned;
+        this.complexity = complexity;
+        this.size = size;
+        this.emergency = emergency;
+        this.status = status;
+        this.projectID = projectID;
+        comments = new ArrayList<>();
+    }
+    public Task(){}
+
     public Size getSize() {
         return size;
     }
@@ -37,19 +56,6 @@ public class Task {
     public void setProjectID(String projectID) {
         this.projectID = projectID;
     }
-
-    public Task(String taskName, String taskDescription, List<String> assigned, Complexity complexity, Size size, Emergency emergency, Status status, String projectID) {
-        this.taskName = taskName;
-        this.taskDescription = taskDescription;
-        this.assigned = assigned;
-        this.complexity = complexity;
-        this.size = size;
-        this.emergency = emergency;
-        this.status = status;
-        this.projectID = projectID;
-    }
-    public Task(){}
-
     public String getTaskName() {
         return taskName;
     }
@@ -148,6 +154,13 @@ public class Task {
 
     public void setTaskID(String taskID) {
         this.taskID = taskID;
+    }
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
 

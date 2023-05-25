@@ -190,10 +190,38 @@
             android:id="@+id/taskComments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+
+        <LinearLayout
+            android:layout_below="@id/taskComments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/commentText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/taskComments"
+                android:layout_marginVertical="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="10dp"
+                android:padding="5dp"
+                android:layout_weight="1"
+                android:hint="Add Comment"
+                android:background="@drawable/input_bg_background"/>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/addComment"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignBaseline="@id/commentText"
+                android:layout_toRightOf="@id/commentText"
+                android:src="@drawable/baseline_send_24" />
+
+        </LinearLayout>
 
     </RelativeLayout>
-
-
-
 
 </RelativeLayout>
