@@ -41,7 +41,9 @@ public class Task {
         this.emergency = emergency;
         this.status = status;
         this.projectID = projectID;
+        Comment comment= new Comment("initial","initial","initial");
         comments = new ArrayList<>();
+        comments.add(comment);
     }
     public Task(){}
 

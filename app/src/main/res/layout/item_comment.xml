@@ -27,26 +27,13 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/commentTitle"
+                android:id="@+id/commentWriter"
                 android:layout_toEndOf="@id/projectImage"
                 android:textColor="@color/black"
-                android:text="Comment Title"
+                android:text="Comment Writer"
                 android:textSize="20dp"
                 />
 
-
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/commentWriter"
-                android:layout_toEndOf="@id/projectImage"
-                android:layout_below="@id/projectName"
-                android:textColor="@color/black"
-                android:text="Comment writer"
-
-                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
