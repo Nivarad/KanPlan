@@ -70,6 +70,20 @@ public class HomeActivity extends DrawerBaseActivity implements NavigationView.O
                 shareApplication();
             }
         });
+
+        tasks.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                enterAllTasksActivity();
+            }
+        });
+    }
+
+    private void enterAllTasksActivity() {
+        Intent intent = new Intent(this,AllTasksActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void shareApplication() {

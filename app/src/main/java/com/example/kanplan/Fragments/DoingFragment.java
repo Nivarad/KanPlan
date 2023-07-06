@@ -52,18 +52,53 @@ public class DoingFragment extends Fragment implements RecyclerViewInterface {
         View view = inflater.inflate(R.layout.fragment_doing, container, false);
 
         doingRecycler = view.findViewById(R.id.recycler_Doing_recycler);
-        getProjectTasks(projectID, new TaskDataCallback() {
-            @Override
-            public void onCallback(ArrayList<Task> tasks) {
-                doingRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-                TaskAdapter adapter = new TaskAdapter(getContext(), tasks, DoingFragment.this);
-                doingRecycler.setAdapter(adapter);
-            }
-        });
+        if(projectID.equals("0")){
+            getAllProjectsTasks(new TaskDataCallback() {
+                @Override
+                public void onCallback(ArrayList<Task> tasks) {
+                    doingRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+                    TaskAdapter adapter = new TaskAdapter(getContext(), tasks, DoingFragment.this);
+                    doingRecycler.setAdapter(adapter);
+                }
+            });
+        }
+        else {
+            getProjectTasks(projectID, new TaskDataCallback() {
+                @Override
+                public void onCallback(ArrayList<Task> tasks) {
+                    doingRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+                    TaskAdapter adapter = new TaskAdapter(getContext(), tasks, DoingFragment.this);
+                    doingRecycler.setAdapter(adapter);
+                }
+            });
+        }
         return view;
 
 
 
+    }
+    private void getAllProjectsTasks(TaskDataCallback taskDataCallback){
+        DatabaseReference projectRef = FirebaseDatabase.getInstance().getReference("tasks");
+        projectRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Task> tasks = new ArrayList<>();
+                for (DataSnapshot projectSnapshot : dataSnapshot.getChildren()) {
+                    Task task = projectSnapshot.getValue(Task.class);
+                    if (task.getAssigned().contains(MySP.getInstance().getEmail()) && task.getStatus() ==Status.DOING) {
+                        tasks.add(task);
+                        storedTasks.add(task);
+
+                    }
+                }
+                taskDataCallback.onCallback(tasks);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
+            }
+        });
     }
 
     private void getProjectTasks(String projectID, TaskDataCallback taskDataCallback) {

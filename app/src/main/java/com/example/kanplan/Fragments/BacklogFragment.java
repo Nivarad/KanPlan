@@ -50,33 +50,59 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
         this.projectManagerEmail= TasksActivity.projectManagerEmail;
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_backlog, container, false);
         backlogRecycler = view.findViewById(R.id.recycler_Backlog_recycler);
 
-        getProjectTasks(projectID, new TaskDataCallback() {
-            @Override
-            public void onCallback(ArrayList<Task> tasks) {
-                backlogRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-                TaskAdapter adapter = new TaskAdapter(getContext(), tasks, BacklogFragment.this);
-                backlogRecycler.setAdapter(adapter);
-//                backlogRecycler.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Task task = storedTasks.get(0);
-//                        Intent intent = new Intent(getActivity(), TaskActivity.class);
-//                        intent.putExtra("taskID", task.getTaskID());
-//                        startActivity(intent);
-//                    }
-//                });
-            }
-        });
+        if(projectID.equals("0")){
+            getAllProjectsTasks(new TaskDataCallback() {
+                @Override
+                public void onCallback(ArrayList<Task> tasks) {
+                    backlogRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+                    TaskAdapter adapter = new TaskAdapter(getContext(), tasks, BacklogFragment.this);
+                    backlogRecycler.setAdapter(adapter);
+                }
+            });
+        }
+        else {
+            getProjectTasks(projectID, new TaskDataCallback() {
+                @Override
+                public void onCallback(ArrayList<Task> tasks) {
+                    backlogRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+                    TaskAdapter adapter = new TaskAdapter(getContext(), tasks, BacklogFragment.this);
+                    backlogRecycler.setAdapter(adapter);
+                }
+            });
+        }
 
 
         return view;
     }
+    private void getAllProjectsTasks(TaskDataCallback taskDataCallback){
+        DatabaseReference projectRef = FirebaseDatabase.getInstance().getReference("tasks");
+        projectRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Task> tasks = new ArrayList<>();
+                for (DataSnapshot projectSnapshot : dataSnapshot.getChildren()) {
+                    Task task = projectSnapshot.getValue(Task.class);
+                    if (task.getAssigned().contains(MySP.getInstance().getEmail()) && task.getStatus() ==Status.BACKLOG) {
+                        tasks.add(task);
+                        storedTasks.add(task);
 
+                    }
+                }
+                taskDataCallback.onCallback(tasks);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
+            }
+        });
+    }
     private void getProjectTasks(String projectID, TaskDataCallback taskDataCallback) {
         DatabaseReference projectRef = FirebaseDatabase.getInstance().getReference("tasks");
         projectRef.addValueEventListener(new ValueEventListener() {

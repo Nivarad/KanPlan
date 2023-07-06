@@ -220,6 +220,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
             editButton = itemView.findViewById(R.id.taskEditButton);
 
             deleteButton =itemView.findViewById(R.id.taskDeleteButton);
+
         }
     }
 }
