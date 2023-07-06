@@ -16,7 +16,9 @@ import com.example.kanplan.Models.Project;
 import com.example.kanplan.Models.User;
 import com.example.kanplan.R;
 import com.example.kanplan.SignalGenerator;
+import com.example.kanplan.Utils.DrawerBaseActivity;
 import com.example.kanplan.Utils.MySP;
+import com.example.kanplan.databinding.ActivityCreateProjectBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -34,9 +36,10 @@ import com.example.kanplan.Data.DataManager.Complexity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateProjectActivity extends AppCompatActivity {
+public class CreateProjectActivity extends DrawerBaseActivity {
 
 
+    ActivityCreateProjectBinding activityCreateProjectBinding;
     private EditText projectName;
     private EditText projectDescription;
     private EditText projectTeam;
@@ -60,7 +63,9 @@ public class CreateProjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_project);
+        activityCreateProjectBinding = ActivityCreateProjectBinding.inflate(getLayoutInflater());
+        setContentView(activityCreateProjectBinding.getRoot());
+        allocateActivityTitle("Create Project");
 
         findViews();
         setSpinners();

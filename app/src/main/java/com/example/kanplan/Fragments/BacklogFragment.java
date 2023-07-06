@@ -22,6 +22,7 @@ import com.example.kanplan.R;
 import com.example.kanplan.SignalGenerator;
 import com.example.kanplan.UI.HomeActivity;
 import com.example.kanplan.UI.TaskActivity;
+import com.example.kanplan.UI.TasksActivity;
 import com.example.kanplan.Utils.MySP;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.database.DataSnapshot;
@@ -46,7 +47,7 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
     public BacklogFragment(String projectID,String projectManagerEmail) {
         // Required empty public constructor
         this.projectID=projectID;
-        this.projectManagerEmail=projectManagerEmail;
+        this.projectManagerEmail= TasksActivity.projectManagerEmail;
     }
 
     @Override
@@ -117,7 +118,7 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
             TaskAdapter.TaskHolder TaskHolder = (TaskAdapter.TaskHolder) viewHolder;
             Button deleteButton = TaskHolder.deleteButton;
             Button editButton = TaskHolder.editButton;
-            if(!MySP.getInstance().getEmail().equals(projectManagerEmail)) {
+            if(!MySP.getInstance().getEmail().equals(TasksActivity.projectManagerEmail)) {
                 deleteButton.setVisibility(View.GONE);
                 editButton.setVisibility(View.GONE);// Make the button invisible
                 SignalGenerator.getInstance().toast("You are not project Manager",0);

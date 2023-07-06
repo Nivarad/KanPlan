@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".UI.ProjectsActivity">
 
+<!--    <include layout="@layout/toolbar" />-->
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/Image_Project_backArrow"
@@ -13,7 +14,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/baseline_arrow_back_24"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"
+        />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/Image_Project_addProject"

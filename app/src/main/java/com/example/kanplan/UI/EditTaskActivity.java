@@ -15,6 +15,8 @@ import com.example.kanplan.Models.Task;
 import com.example.kanplan.Models.User;
 import com.example.kanplan.R;
 import com.example.kanplan.SignalGenerator;
+import com.example.kanplan.Utils.DrawerBaseActivity;
+import com.example.kanplan.databinding.ActivityEditTaskBinding;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,8 +31,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class EditTaskActivity extends AppCompatActivity {
+public class EditTaskActivity extends DrawerBaseActivity {
 
+    ActivityEditTaskBinding activityEditTaskBinding;
     private ShapeableImageView backArrow;
     private ShapeableImageView saveIcon;
     private EditText taskName;
@@ -55,7 +58,9 @@ public class EditTaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_task);
+        activityEditTaskBinding = ActivityEditTaskBinding.inflate(getLayoutInflater());
+        setContentView(activityEditTaskBinding.getRoot());
+        allocateActivityTitle("Edit Task");
 
         Intent intent = getIntent();
         if (intent != null) {

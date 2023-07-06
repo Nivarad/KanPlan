@@ -23,16 +23,31 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-            <com.google.android.material.textview.MaterialTextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/commentWriter"
-                android:layout_toEndOf="@id/projectImage"
-                android:textColor="@color/black"
-                android:text="Comment Writer"
-                android:textSize="20dp"
-                />
+                android:orientation="horizontal">
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/commentWriter"
+                    android:layout_toEndOf="@id/projectImage"
+                    android:textColor="@color/black"
+                    android:text="Comment Writer"
+                    android:textSize="20dp"
+                    />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/commentDate"
+                    android:layout_toEndOf="@id/commentWriter"
+                    android:textColor="@color/black"
+                    android:text="Comment Writer"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="20dp"
+                    />
+            </LinearLayout>
 
 
             <com.google.android.material.textview.MaterialTextView

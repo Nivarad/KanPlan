@@ -7,17 +7,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 
 import com.example.kanplan.Adapters.CommentAdapter;
-import com.example.kanplan.Adapters.ProjectAdapter;
-import com.example.kanplan.Interfaces.RecyclerViewInterface;
 import com.example.kanplan.Models.Comment;
 import com.example.kanplan.Models.Task;
 import com.example.kanplan.R;
 import com.example.kanplan.SignalGenerator;
+import com.example.kanplan.Utils.DrawerBaseActivity;
 import com.example.kanplan.Utils.MySP;
+import com.example.kanplan.databinding.ActivityTaskBinding;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DataSnapshot;
@@ -29,8 +33,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskActivity extends AppCompatActivity {
+public class TaskActivity extends DrawerBaseActivity {
 
+    ActivityTaskBinding activityTaskBinding;
     private MaterialTextView taskName;
     private MaterialTextView taskDescription;
     private MaterialTextView taskComplexity;
@@ -50,7 +55,9 @@ public class TaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task);
+        activityTaskBinding = ActivityTaskBinding.inflate(getLayoutInflater());
+        setContentView(activityTaskBinding.getRoot());
+        allocateActivityTitle("Task");
 
         Intent intent =getIntent();
         if(intent !=null){
@@ -184,5 +191,44 @@ public class TaskActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public static class SplashScreenActivity extends AppCompatActivity {
+
+        //Variables
+        Animation topAnimation , bottomAnimation;
+        ShapeableImageView image;
+        MaterialTextView logo;
+
+        private static int SPLASH_SCREEN =3000;
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            setContentView(R.layout.activity_splash_screen);
+
+            //Animations
+
+            topAnimation= AnimationUtils.loadAnimation(this,R.anim.top_animation);
+            bottomAnimation= AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
+
+            //hooks
+            image= findViewById(R.id.shapeableImageView);
+            logo=findViewById(R.id.logo);
+
+            image.setAnimation(topAnimation);
+            logo.setAnimation(bottomAnimation);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent= new Intent(SplashScreenActivity.this, SignInActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            },SPLASH_SCREEN);
+
+
+        }
     }
 }

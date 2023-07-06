@@ -75,6 +75,11 @@ public class Task {
     }
 
     public List<String> getAssigned() {
+        if(assigned==null){
+            assigned = new ArrayList<String>();
+            assigned.add("");
+            return assigned;
+        }
         return assigned;
     }
 

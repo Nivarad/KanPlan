@@ -13,31 +13,10 @@
         android:theme="@style/Theme.KanPlan"
         tools:targetApi="31">
         <activity
-            android:name=".UI.EditProjectActivity"
+            android:name=".Utils.DrawerBaseActivity"
             android:exported="false" />
         <activity
-            android:name=".UI.CreateTaskActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UI.CreateProjectActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UI.ProjectsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UI.EditTaskActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UI.TaskActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UI.TasksActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UI.HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UI.SignInActivity"
+            android:name=".UI.TaskActivity$SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,6 +24,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".UI.EditProjectActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.Home" />
+        <activity
+            android:name=".UI.CreateTaskActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.Home" />
+        <activity
+            android:name=".UI.CreateProjectActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.Home" />
+        <activity
+            android:name=".UI.ProjectsActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.Home" />
+        <activity
+            android:name=".UI.EditTaskActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.Home" />
+        <activity
+            android:name=".UI.TaskActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.Home" />
+        <activity
+            android:name=".UI.TasksActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.Home" />
+        <activity
+            android:name=".UI.SignInActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UI.HomeActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.Home" />
         <activity
             android:name=".UI.SignUpActivity"
             android:exported="false" />

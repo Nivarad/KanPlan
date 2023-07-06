@@ -15,7 +15,9 @@ import com.example.kanplan.Models.Project;
 import com.example.kanplan.Models.User;
 import com.example.kanplan.R;
 import com.example.kanplan.SignalGenerator;
+import com.example.kanplan.Utils.DrawerBaseActivity;
 import com.example.kanplan.Utils.MySP;
+import com.example.kanplan.databinding.ActivityEditProjectBinding;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,9 +31,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class EditProjectActivity extends AppCompatActivity {
+public class EditProjectActivity extends DrawerBaseActivity {
 
-
+    ActivityEditProjectBinding activityEditProjectBinding;
     private EditText projectName;
     private EditText projectDescription;
     private EditText projectTeam;
@@ -57,7 +59,9 @@ public class EditProjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_project);
+        activityEditProjectBinding = ActivityEditProjectBinding.inflate(getLayoutInflater());
+        setContentView(activityEditProjectBinding.getRoot());
+        allocateActivityTitle("Edit Project");
 
         Intent intent = getIntent();
         if (intent != null) {

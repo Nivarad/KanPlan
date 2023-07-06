@@ -46,6 +46,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.CommentHolder holder, int position) {
         holder.commentText.setText(comments.get(position).getCommentText());
+        holder.commentDate.setText(comments.get(position).getDate());
         if(comments.get(position).getCommentWriterName().equals(MySP.getInstance().getName()))
             holder.commentWriterName.setText("You");
         else
@@ -64,6 +65,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
         public MaterialTextView commentWriterName;
         public MaterialTextView commentText;
 
+        public MaterialTextView commentDate;
+
 
 
 
@@ -78,6 +81,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
         public void findViewsHolder(){
             commentWriterName = itemView.findViewById(R.id.commentWriter);
             commentText = itemView.findViewById(R.id.commentText);
+            commentDate = itemView.findViewById(R.id.commentDate);
         }
     }
 }

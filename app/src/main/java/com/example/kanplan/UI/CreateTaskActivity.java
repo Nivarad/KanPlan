@@ -15,7 +15,9 @@ import com.example.kanplan.Models.Task;
 import com.example.kanplan.Models.User;
 import com.example.kanplan.R;
 import com.example.kanplan.SignalGenerator;
+import com.example.kanplan.Utils.DrawerBaseActivity;
 import com.example.kanplan.Utils.MySP;
+import com.example.kanplan.databinding.ActivityCreateTaskBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -28,8 +30,9 @@ import com.example.kanplan.Data.DataManager.Status;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateTaskActivity extends AppCompatActivity {
+public class CreateTaskActivity extends DrawerBaseActivity {
 
+    ActivityCreateTaskBinding activityCreateTaskBinding;
     private ShapeableImageView backArrow;
     private ShapeableImageView saveIcon;
     private EditText taskName;
@@ -51,10 +54,13 @@ public class CreateTaskActivity extends AppCompatActivity {
 
     private final String[] STATUSES = {"Status","Backlog","Doing","Done"};
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_task);
+        activityCreateTaskBinding =ActivityCreateTaskBinding.inflate(getLayoutInflater());
+        setContentView(activityCreateTaskBinding.getRoot());
+        allocateActivityTitle("Create Task");
 
 
         Intent intent = getIntent();
@@ -197,6 +203,8 @@ public class CreateTaskActivity extends AppCompatActivity {
     private void openTasksView() {
         Intent intent = new Intent(this,TasksActivity.class);
         intent.putExtra("projectID",TasksActivity.projectID);
+        intent.putExtra("projectManager",TasksActivity.projectManagerEmail);
+
         startActivity(intent);
         finish();
     }

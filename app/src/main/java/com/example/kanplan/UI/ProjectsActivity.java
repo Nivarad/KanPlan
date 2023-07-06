@@ -2,12 +2,17 @@ package com.example.kanplan.UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,9 +22,12 @@ import com.example.kanplan.Interfaces.RecyclerViewInterface;
 import com.example.kanplan.Models.Project;
 import com.example.kanplan.R;
 import com.example.kanplan.SignalGenerator;
+import com.example.kanplan.Utils.DrawerBaseActivity;
 import com.example.kanplan.Utils.MySP;
-import com.google.android.material.button.MaterialButton;
+import com.example.kanplan.databinding.ActivityHomeBinding;
+import com.example.kanplan.databinding.ActivityProjectsBinding;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,20 +36,25 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ProjectsActivity extends AppCompatActivity implements RecyclerViewInterface {
+public class ProjectsActivity extends DrawerBaseActivity implements RecyclerViewInterface, NavigationView.OnNavigationItemSelectedListener {
 
+    ActivityProjectsBinding activityProjectsBinding;
     private ShapeableImageView backArrow;
     private ShapeableImageView addProject;
     private RecyclerView recyclerView;
 
     private ArrayList<Project> storedProjects = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_projects);
+        activityProjectsBinding = activityProjectsBinding.inflate(getLayoutInflater());
+        setContentView(activityProjectsBinding.getRoot());
+        allocateActivityTitle("Projects");
 
         findViews();
+
 
         getUserProjects(MySP.getInstance().getEmail(), new ProjectDataCallback() {
             @Override
@@ -101,6 +114,7 @@ public class ProjectsActivity extends AppCompatActivity implements RecyclerViewI
         backArrow = findViewById(R.id.Image_Project_backArrow);
         addProject = findViewById(R.id.Image_Project_addProject);
         recyclerView = findViewById(R.id.recycler_Project_recycler);
+
     }
 
     public void openHomeScreen() {
@@ -145,4 +159,7 @@ public class ProjectsActivity extends AppCompatActivity implements RecyclerViewI
             }
         }
     }
+
+
 }
+

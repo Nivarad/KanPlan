@@ -9,11 +9,15 @@ import android.view.View;
 
 import com.example.kanplan.Adapters.ViewPagerTasksAdapter;
 import com.example.kanplan.R;
+import com.example.kanplan.Utils.DrawerBaseActivity;
+import com.example.kanplan.Utils.MySP;
+import com.example.kanplan.databinding.ActivityTasksBinding;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.tabs.TabLayout;
 
-public class TasksActivity extends AppCompatActivity {
+public class TasksActivity extends DrawerBaseActivity {
 
+    ActivityTasksBinding activityTasksBinding;
     private TabLayout tab;
     private ViewPager viewPager;
     private ShapeableImageView backArrow;
@@ -25,12 +29,16 @@ public class TasksActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tasks);
+        activityTasksBinding = ActivityTasksBinding.inflate(getLayoutInflater());
+        setContentView(activityTasksBinding.getRoot());
+        allocateActivityTitle("Tasks");
 
         Intent intent = getIntent();
         if (intent != null) {
             projectID = intent.getStringExtra("projectID");
-            projectManagerEmail = intent.getStringExtra("projectManager");
+            String check=intent.getStringExtra("projectManager");
+            if(check!=null)
+                projectManagerEmail =check;
         }
         findViews();
 
@@ -46,6 +54,9 @@ public class TasksActivity extends AppCompatActivity {
             }
         });
 
+        if(!MySP.getInstance().getEmail().equals(projectManagerEmail)){
+            addTask.setVisibility(View.GONE);
+        }
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +70,7 @@ public class TasksActivity extends AppCompatActivity {
     private void openNewTask() {
         Intent intent =new Intent(this,CreateTaskActivity.class);
         intent.putExtra("projectID",projectID);
+        intent.putExtra("projectManager",projectManagerEmail);
         startActivity(intent);
     }
 
