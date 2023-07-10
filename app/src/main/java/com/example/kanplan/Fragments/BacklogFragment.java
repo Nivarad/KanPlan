@@ -41,22 +41,22 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
 
     private String projectID;
     private String projectManagerEmail;
+
     public BacklogFragment() {
         // Required empty public constructor
     }
-    public BacklogFragment(String projectID,String projectManagerEmail) {
-        // Required empty public constructor
-        this.projectID=projectID;
-        this.projectManagerEmail= TasksActivity.projectManagerEmail;
-    }
 
+    public BacklogFragment(String projectID, String projectManagerEmail) {
+        this.projectID = projectID;
+        this.projectManagerEmail = projectManagerEmail;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_backlog, container, false);
         backlogRecycler = view.findViewById(R.id.recycler_Backlog_recycler);
 
-        if(projectID.equals("0")){
+        if (projectID.equals("0")) {
             getAllProjectsTasks(new TaskDataCallback() {
                 @Override
                 public void onCallback(ArrayList<Task> tasks) {
@@ -65,8 +65,7 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
                     backlogRecycler.setAdapter(adapter);
                 }
             });
-        }
-        else {
+        } else {
             getProjectTasks(projectID, new TaskDataCallback() {
                 @Override
                 public void onCallback(ArrayList<Task> tasks) {
@@ -77,10 +76,15 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
             });
         }
 
-
         return view;
     }
-    private void getAllProjectsTasks(TaskDataCallback taskDataCallback){
+
+    /**
+     * Retrieves all tasks for all projects where the current user is assigned and the status is BACKLOG.
+     *
+     * @param taskDataCallback The callback to be called with the list of tasks.
+     */
+    private void getAllProjectsTasks(TaskDataCallback taskDataCallback) {
         DatabaseReference projectRef = FirebaseDatabase.getInstance().getReference("tasks");
         projectRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -88,10 +92,9 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
                 ArrayList<Task> tasks = new ArrayList<>();
                 for (DataSnapshot projectSnapshot : dataSnapshot.getChildren()) {
                     Task task = projectSnapshot.getValue(Task.class);
-                    if (task.getAssigned().contains(MySP.getInstance().getEmail()) && task.getStatus() ==Status.BACKLOG) {
+                    if (task.getAssigned().contains(MySP.getInstance().getEmail()) && task.getStatus() == Status.BACKLOG) {
                         tasks.add(task);
                         storedTasks.add(task);
-
                     }
                 }
                 taskDataCallback.onCallback(tasks);
@@ -103,6 +106,13 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
             }
         });
     }
+
+    /**
+     * Retrieves all tasks for a specific project where the status is BACKLOG.
+     *
+     * @param projectID        The ID of the project.
+     * @param taskDataCallback The callback to be called with the list of tasks.
+     */
     private void getProjectTasks(String projectID, TaskDataCallback taskDataCallback) {
         DatabaseReference projectRef = FirebaseDatabase.getInstance().getReference("tasks");
         projectRef.addValueEventListener(new ValueEventListener() {
@@ -111,10 +121,9 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
                 ArrayList<Task> tasks = new ArrayList<>();
                 for (DataSnapshot projectSnapshot : dataSnapshot.getChildren()) {
                     Task task = projectSnapshot.getValue(Task.class);
-                    if (task.getProjectID().equals(projectID) && task.getStatus() ==Status.BACKLOG) {
+                    if (task.getProjectID().equals(projectID) && task.getStatus() == Status.BACKLOG) {
                         tasks.add(task);
                         storedTasks.add(task);
-
                     }
                 }
                 taskDataCallback.onCallback(tasks);
@@ -132,7 +141,7 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
         Task task = storedTasks.get(position);
         Intent intent = new Intent(getActivity(), TaskActivity.class);
         intent.putExtra("taskID", task.getTaskID());
-        intent.putExtra("projectID",task.getProjectID());
+        intent.putExtra("projectID", task.getProjectID());
         startActivity(intent);
     }
 
@@ -141,36 +150,23 @@ public class BacklogFragment extends Fragment implements RecyclerViewInterface {
         // Get the long-pressed item view from the RecyclerView
         RecyclerView.ViewHolder viewHolder = backlogRecycler.findViewHolderForAdapterPosition(position);
         if (viewHolder instanceof TaskAdapter.TaskHolder) {
-            TaskAdapter.TaskHolder TaskHolder = (TaskAdapter.TaskHolder) viewHolder;
-            Button deleteButton = TaskHolder.deleteButton;
-            Button editButton = TaskHolder.editButton;
-            if(!MySP.getInstance().getEmail().equals(TasksActivity.projectManagerEmail)) {
+            TaskAdapter.TaskHolder taskHolder = (TaskAdapter.TaskHolder) viewHolder;
+            Button deleteButton = taskHolder.deleteButton;
+            Button editButton = taskHolder.editButton;
+
+            if (!MySP.getInstance().getEmail().equals(projectManagerEmail)) {
                 deleteButton.setVisibility(View.GONE);
-                editButton.setVisibility(View.GONE);// Make the button invisible
-                SignalGenerator.getInstance().toast("You are not project Manager",0);
-            }
-            else{
+                editButton.setVisibility(View.GONE);
+                SignalGenerator.getInstance().toast("You are not the project manager", 0);
+            } else {
                 if (deleteButton.getVisibility() == View.VISIBLE) {
                     deleteButton.setVisibility(View.GONE);
-                    editButton.setVisibility(View.GONE);// Make the button invisible
+                    editButton.setVisibility(View.GONE);
                 } else {
                     deleteButton.setVisibility(View.VISIBLE);
-                    editButton.setVisibility(View.VISIBLE); // Make the button visible
-
-
+                    editButton.setVisibility(View.VISIBLE);
                 }
             }
-
         }
-
     }
-
-//    @Override
-//    public void onItemClick(int position) {
-//        Task task = storedTasks.get(position);
-//        Intent intent = new Intent(getActivity(), TaskActivity.class);
-//        intent.putExtra("taskID", task.getTaskID());
-//        startActivity(intent);
-//    }
-
 }

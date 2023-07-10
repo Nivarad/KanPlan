@@ -27,4 +27,9 @@ public class DataManager {
         DOING,
         DONE,
     }
+
+    public enum Gender {
+        MALE,
+        FEMALE
+    }
 }

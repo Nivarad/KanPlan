@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -24,6 +25,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.zip.Inflater;
+
 public class HomeActivity extends DrawerBaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ActivityHomeBinding activityHomeBinding;
@@ -33,6 +36,8 @@ public class HomeActivity extends DrawerBaseActivity implements NavigationView.O
     private CardView tasks;
 
     private CardView share;
+
+    private CardView aboutMe;
 
     private CardView personalize;
 
@@ -46,6 +51,7 @@ public class HomeActivity extends DrawerBaseActivity implements NavigationView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         activityHomeBinding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(activityHomeBinding.getRoot());
         allocateActivityTitle("Home");
@@ -76,6 +82,21 @@ public class HomeActivity extends DrawerBaseActivity implements NavigationView.O
             @Override
             public void onClick(View v) {
                 enterAllTasksActivity();
+            }
+        });
+        aboutMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ardos.netlify.app"));
+                startActivity(browserIntent);
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+                SignalGenerator.getInstance().toast("Logged out",0);
             }
         });
     }
@@ -121,6 +142,8 @@ public class HomeActivity extends DrawerBaseActivity implements NavigationView.O
         share =findViewById(R.id.Image_Home_Share);
 
         personalize=findViewById(R.id.Image_Home_Personalize);
+
+        aboutMe = findViewById(R.id.Image_Home_About_Me);
 
 
     }

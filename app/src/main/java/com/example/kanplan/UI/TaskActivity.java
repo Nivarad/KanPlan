@@ -7,11 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 
 import com.example.kanplan.Adapters.CommentAdapter;
@@ -43,7 +39,6 @@ public class TaskActivity extends DrawerBaseActivity {
     private MaterialTextView taskEmergency;
     private MaterialTextView taskTeam;
 
-
     private String taskID;
     private String projectID;
     private ShapeableImageView backArrow;
@@ -59,8 +54,8 @@ public class TaskActivity extends DrawerBaseActivity {
         setContentView(activityTaskBinding.getRoot());
         allocateActivityTitle("Task");
 
-        Intent intent =getIntent();
-        if(intent !=null){
+        Intent intent = getIntent();
+        if (intent != null) {
             taskID = intent.getStringExtra("taskID");
             projectID = intent.getStringExtra("projectID");
         }
@@ -82,12 +77,17 @@ public class TaskActivity extends DrawerBaseActivity {
                 if (!comment.isEmpty()) {
                     addCommentToTask(comment);
                 } else {
-                    SignalGenerator.getInstance().toast("Comment is empty",0);
+                    SignalGenerator.getInstance().toast("Comment is empty", 0);
                 }
             }
         });
     }
 
+    /**
+     * Adds a comment to the task.
+     *
+     * @param comment The comment to be added.
+     */
     private void addCommentToTask(String comment) {
         DatabaseReference taskRef = FirebaseDatabase.getInstance().getReference("tasks").child(taskID);
         DatabaseReference commentsRef = taskRef.child("comments");
@@ -131,14 +131,19 @@ public class TaskActivity extends DrawerBaseActivity {
         });
     }
 
+    /**
+     * Opens the TasksActivity.
+     */
     private void openTasksView() {
-        Intent intent = new Intent(this,TasksActivity.class);
-        intent.putExtra("projectID",this.projectID);
+        Intent intent = new Intent(this, TasksActivity.class);
+        intent.putExtra("projectID", this.projectID);
         startActivity(intent);
         finish();
-
     }
 
+    /**
+     * Sets the task data on the UI.
+     */
     private void setTaskData() {
         DatabaseReference taskRef = FirebaseDatabase.getInstance().getReference("tasks").child(taskID);
         taskRef.addValueEventListener(new ValueEventListener() {
@@ -154,9 +159,9 @@ public class TaskActivity extends DrawerBaseActivity {
                         taskEmergency.setText(task.getEmergencyString());
                         taskSize.setText(task.getSizeString());
                         List<String> team = task.getAssigned();
-                        String members ="";
-                        for(int i=0;i<team.size();i++){
-                            members+=team.get(i)+"\n";
+                        String members = "";
+                        for (int i = 0; i < team.size(); i++) {
+                            members += team.get(i) + "\n";
                         }
                         taskTeam.setText(members);
                         populateComments(task.getComments());
@@ -169,14 +174,22 @@ public class TaskActivity extends DrawerBaseActivity {
                 // Handle error
             }
         });
-
     }
+
+    /**
+     * Populates the comments RecyclerView with the comments list.
+     *
+     * @param commentsList The list of comments to be displayed.
+     */
     private void populateComments(List<Comment> commentsList) {
         // Create an instance of the CommentAdapter and pass the comments list
         commentsRecycler.setLayoutManager(new LinearLayoutManager(TaskActivity.this));
         commentsRecycler.setAdapter(new CommentAdapter(getApplicationContext(), (ArrayList<Comment>) commentsList));
     }
 
+    /**
+     * Finds and initializes the views used in the activity layout.
+     */
     private void findViews() {
         taskName = findViewById(R.id.LBL_Task_taskName);
         taskDescription = findViewById(R.id.LBL_TaskView_taskDescription);
@@ -188,47 +201,5 @@ public class TaskActivity extends DrawerBaseActivity {
         addComment = findViewById(R.id.addComment);
         commentText = findViewById(R.id.commentText);
         commentsRecycler = findViewById(R.id.taskComments);
-
-
-
-    }
-
-    public static class SplashScreenActivity extends AppCompatActivity {
-
-        //Variables
-        Animation topAnimation , bottomAnimation;
-        ShapeableImageView image;
-        MaterialTextView logo;
-
-        private static int SPLASH_SCREEN =3000;
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            setContentView(R.layout.activity_splash_screen);
-
-            //Animations
-
-            topAnimation= AnimationUtils.loadAnimation(this,R.anim.top_animation);
-            bottomAnimation= AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
-
-            //hooks
-            image= findViewById(R.id.shapeableImageView);
-            logo=findViewById(R.id.logo);
-
-            image.setAnimation(topAnimation);
-            logo.setAnimation(bottomAnimation);
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent= new Intent(SplashScreenActivity.this, SignInActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            },SPLASH_SCREEN);
-
-
-        }
     }
 }

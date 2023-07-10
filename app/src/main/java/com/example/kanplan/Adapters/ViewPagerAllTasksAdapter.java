@@ -9,47 +9,70 @@ import com.example.kanplan.Fragments.BacklogFragment;
 import com.example.kanplan.Fragments.DoingFragment;
 import com.example.kanplan.Fragments.DoneFragment;
 
+/**
+ * Adapter for ViewPager to display all tasks.
+ */
 public class ViewPagerAllTasksAdapter extends FragmentPagerAdapter {
 
-    private String projectID;
     private String projectManagerEmail;
 
-    public ViewPagerAllTasksAdapter(@NonNull FragmentManager fm, String mail) {
+    /**
+     * Constructs a ViewPagerAllTasksAdapter.
+     *
+     * @param fm                  The FragmentManager instance.
+     * @param projectManagerEmail The email of the project manager.
+     */
+    public ViewPagerAllTasksAdapter(@NonNull FragmentManager fm, String projectManagerEmail) {
         super(fm);
-        this.projectID=projectID;
-        this.projectManagerEmail=projectManagerEmail;
-
+        this.projectManagerEmail = projectManagerEmail;
     }
 
+    /**
+     * Returns the fragment for the specified position in the ViewPager.
+     *
+     * @param position The position of the fragment.
+     * @return The fragment to be displayed.
+     */
+    @NonNull
     @Override
     public Fragment getItem(int position) {
-        if(position ==0){
-            return new BacklogFragment("0",projectManagerEmail);
-        }
-        else if(position==1){
-            return new DoingFragment("0",projectManagerEmail);
-        }
-        else{
-            return new DoneFragment("0",projectManagerEmail);
+        if (position == 0) {
+            // Display BacklogFragment
+            return new BacklogFragment("0", projectManagerEmail);
+        } else if (position == 1) {
+            // Display DoingFragment
+            return new DoingFragment("0", projectManagerEmail);
+        } else {
+            // Display DoneFragment
+            return new DoneFragment("0", projectManagerEmail);
         }
     }
 
+    /**
+     * Returns the number of tabs.
+     *
+     * @return The number of tabs.
+     */
     @Override
     public int getCount() {
-        return 3; //no of tabs
+        return 3; // Number of tabs
     }
 
-
+    /**
+     * Returns the title of the tab at the specified position.
+     *
+     * @param position The position of the tab.
+     * @return The title of the tab.
+     */
     @Override
     public CharSequence getPageTitle(int position) {
-        if(position==0){
+        if (position == 0) {
             return "Backlog";
-        }
-        else if(position==1){
+        } else if (position == 1) {
             return "Doing";
-        }
-        else{
+        } else {
             return "Done";
         }
     }
 }
+

@@ -15,6 +15,10 @@ import com.example.kanplan.databinding.ActivityTasksBinding;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.tabs.TabLayout;
 
+/**
+ * TasksActivity displays the tasks associated with a project.
+ * It uses a ViewPager and TabLayout to show different categories of tasks.
+ */
 public class TasksActivity extends DrawerBaseActivity {
 
     ActivityTasksBinding activityTasksBinding;
@@ -26,6 +30,7 @@ public class TasksActivity extends DrawerBaseActivity {
     public static String projectManagerEmail;
 
     ViewPagerTasksAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,13 +41,13 @@ public class TasksActivity extends DrawerBaseActivity {
         Intent intent = getIntent();
         if (intent != null) {
             projectID = intent.getStringExtra("projectID");
-            String check=intent.getStringExtra("projectManager");
-            if(check!=null)
-                projectManagerEmail =check;
+            String check = intent.getStringExtra("projectManager");
+            if (check != null)
+                projectManagerEmail = check;
         }
         findViews();
 
-        adapter = new ViewPagerTasksAdapter(getSupportFragmentManager(),projectID,projectManagerEmail);
+        adapter = new ViewPagerTasksAdapter(getSupportFragmentManager(), projectID, projectManagerEmail);
         viewPager.setAdapter(adapter);
 
         tab.setupWithViewPager(viewPager);
@@ -54,7 +59,7 @@ public class TasksActivity extends DrawerBaseActivity {
             }
         });
 
-        if(!MySP.getInstance().getEmail().equals(projectManagerEmail)){
+        if (!MySP.getInstance().getEmail().equals(projectManagerEmail)) {
             addTask.setVisibility(View.GONE);
         }
         addTask.setOnClickListener(new View.OnClickListener() {
@@ -63,30 +68,33 @@ public class TasksActivity extends DrawerBaseActivity {
                 openNewTask();
             }
         });
-
-
     }
 
+    /**
+     * Opens the NewTaskActivity to create a new task for the project.
+     */
     private void openNewTask() {
-        Intent intent =new Intent(this,CreateTaskActivity.class);
-        intent.putExtra("projectID",projectID);
-        intent.putExtra("projectManager",projectManagerEmail);
+        Intent intent = new Intent(this, CreateTaskActivity.class);
+        intent.putExtra("projectID", projectID);
+        intent.putExtra("projectManager", projectManagerEmail);
         startActivity(intent);
     }
 
+    /**
+     * Opens the ProjectsActivity.
+     */
     private void openProjectsView() {
-        Intent intent =new Intent(this,ProjectsActivity.class);
+        Intent intent = new Intent(this, ProjectsActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Finds and initializes the views used in the activity layout.
+     */
     private void findViews() {
         tab = findViewById(R.id.tab_Tasks_tab);
         viewPager = findViewById(R.id.viewPager_Tasks_ViewPager);
         backArrow = findViewById(R.id.Image_Tasks_backArrow);
         addTask = findViewById(R.id.Image_Tasks_addTask);
-
-
     }
-
-
 }

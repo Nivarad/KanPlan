@@ -19,7 +19,7 @@
             android:name=".Utils.DrawerBaseActivity"
             android:exported="false" />
         <activity
-            android:name=".UI.TaskActivity$SplashScreenActivity"
+            android:name=".UI.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

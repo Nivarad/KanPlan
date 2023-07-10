@@ -23,14 +23,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
     private Context context;
     private ArrayList<Task> tasks;
-
     private final RecyclerViewInterface recyclerViewInterface;
-
-
 
     public TaskAdapter(Context context, ArrayList<Task> tasks, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
@@ -38,32 +35,32 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
-
-
     @NonNull
     @Override
-    public TaskAdapter.TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new TaskHolder(LayoutInflater.from(context).inflate(R.layout.item_task, parent, false),tasks,recyclerViewInterface);
-
-
-
+    public TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate the item layout and create a TaskHolder
+        return new TaskHolder(LayoutInflater.from(context).inflate(R.layout.item_task, parent, false), tasks, recyclerViewInterface);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TaskAdapter.TaskHolder holder, int position) {
-        int new_pos=position;
+    public void onBindViewHolder(@NonNull TaskHolder holder, int position) {
+        // Get the task at the given position
+        Task task = tasks.get(position);
 
+        // Set the task data to the views in the ViewHolder
+        holder.taskName.setText(task.getTaskName());
+        holder.taskDescription.setText(task.getTaskDescription());
+        holder.taskComplexity.setText(task.getComplexityString());
 
-        holder.taskName.setText(tasks.get(position).getTaskName());
-        holder.taskDescription.setText(tasks.get(position).getTaskDescription());
-        holder.taskComplexity.setText(tasks.get(position).getComplexityString());
-        if(tasks.get(position).getAssigned().contains(MySP.getInstance().getEmail())){
+        // Set the visibility of the taskWarning ImageView based on assignment
+        if (task.getAssigned().contains(MySP.getInstance().getEmail())) {
             holder.taskWarning.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             holder.taskWarning.setVisibility(View.INVISIBLE);
         }
-        switch(tasks.get(position).getComplexityString()){
+
+        // Set the background resource of taskComplexity based on complexityString
+        switch (task.getComplexityString()) {
             case "Very Complex":
                 holder.taskComplexity.setBackgroundResource(R.drawable.highlight_asap_vcomplex_vbig);
                 break;
@@ -75,11 +72,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
                 break;
             case "Easy":
                 holder.taskComplexity.setBackgroundResource(R.drawable.highlight_low_small_easy);
+                break;
         }
 
-
-        holder.taskEmergency.setText(tasks.get(position).getEmergencyString());
-        switch(tasks.get(position).getEmergencyString()){
+        // Set the text and background resource of taskEmergency based on emergencyString
+        holder.taskEmergency.setText(task.getEmergencyString());
+        switch (task.getEmergencyString()) {
             case "ASAP":
                 holder.taskEmergency.setBackgroundResource(R.drawable.highlight_asap_vcomplex_vbig);
                 break;
@@ -91,11 +89,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
                 break;
             case "Low":
                 holder.taskEmergency.setBackgroundResource(R.drawable.highlight_low_small_easy);
+                break;
         }
 
-        holder.taskSize.setText(tasks.get(position).getSizeString());
-
-        switch(tasks.get(position).getSizeString()){
+        // Set the text and background resource of taskSize based on sizeString
+        holder.taskSize.setText(task.getSizeString());
+        switch (task.getSizeString()) {
             case "Very Big":
                 holder.taskSize.setBackgroundResource(R.drawable.highlight_asap_vcomplex_vbig);
                 break;
@@ -107,12 +106,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
                 break;
             case "Small":
                 holder.taskSize.setBackgroundResource(R.drawable.highlight_low_small_easy);
+                break;
         }
-
-
-
     }
-
 
     @Override
     public int getItemCount() {
@@ -122,26 +118,21 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
     public static class TaskHolder extends RecyclerView.ViewHolder {
 
         public MaterialTextView taskName;
-
         public MaterialTextView taskDescription;
-
         public MaterialTextView taskComplexity;
         public MaterialTextView taskSize;
         public MaterialTextView taskEmergency;
         public ShapeableImageView taskWarning;
-
         public Button editButton;
-
         public Button deleteButton;
 
-
-
-
-        public TaskHolder(@NonNull View itemView,final ArrayList<Task> tasks, RecyclerViewInterface recyclerViewInterface) {
+        public TaskHolder(@NonNull View itemView, final ArrayList<Task> tasks, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
+            // Find the views in the item layout
             findViewsHolder();
 
+            // Set click listeners for the item view, edit button, and delete button
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -173,14 +164,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        // Get the task ID
-                        String taskID = tasks.get(position).getTaskID();
-                        String projectID = tasks.get(position).getProjectID();
+                        Task task = tasks.get(position);
+                        String taskID = task.getTaskID();
+                        String projectID = task.getProjectID();
 
-                         //Create an intent to start the EditTaskActivity
+                        // Create an intent to start the EditTaskActivity
                         Intent intent = new Intent(itemView.getContext(), EditTaskActivity.class);
                         intent.putExtra("taskID", taskID);
-                        intent.putExtra("projectID",projectID);
+                        intent.putExtra("projectID", projectID);
                         itemView.getContext().startActivity(intent);
                     }
                 }
@@ -193,14 +184,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
                     if (position != RecyclerView.NO_POSITION) {
                         Task task = tasks.get(position);
                         String taskID = task.getTaskID();
-                        String projectID = task.getProjectID();
 
                         // Remove the task from Firebase
-                        DatabaseReference taskRef = FirebaseDatabase.getInstance().getReference("tasks")
-                                .child(taskID);
+                        DatabaseReference taskRef = FirebaseDatabase.getInstance().getReference("tasks").child(taskID);
                         taskRef.removeValue();
-                        SignalGenerator.getInstance().toast("Task deleted Successfully",1);
-
+                        SignalGenerator.getInstance().toast("Task deleted Successfully", 1);
                     }
                 }
             });
@@ -209,18 +197,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
             deleteButton.setVisibility(View.GONE);
         }
 
-        public void findViewsHolder(){
+        public void findViewsHolder() {
             taskName = itemView.findViewById(R.id.taskName);
-
-            taskDescription=itemView.findViewById(R.id.taskDescription);
+            taskDescription = itemView.findViewById(R.id.taskDescription);
             taskComplexity = itemView.findViewById(R.id.taskComplexity);
             taskSize = itemView.findViewById(R.id.taskSize);
             taskEmergency = itemView.findViewById(R.id.taskEmergency);
             taskWarning = itemView.findViewById(R.id.taskWarning);
             editButton = itemView.findViewById(R.id.taskEditButton);
-
-            deleteButton =itemView.findViewById(R.id.taskDeleteButton);
-
+            deleteButton = itemView.findViewById(R.id.taskDeleteButton);
         }
     }
 }

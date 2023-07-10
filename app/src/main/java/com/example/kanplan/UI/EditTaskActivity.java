@@ -27,10 +27,14 @@ import com.example.kanplan.Data.DataManager.Emergency;
 import com.example.kanplan.Data.DataManager.Size;
 import com.example.kanplan.Data.DataManager.Complexity;
 import com.example.kanplan.Data.DataManager.Status;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Activity for editing a task.
+ */
 public class EditTaskActivity extends DrawerBaseActivity {
 
     ActivityEditTaskBinding activityEditTaskBinding;
@@ -46,11 +50,11 @@ public class EditTaskActivity extends DrawerBaseActivity {
 
     private List<String> emails = new ArrayList<>();
 
-    private final String[] COMPLEXITIES = {"Complexity","Easy","Regular","Complex","Very Complex"};
-    private final String[] SIZES = {"Size","Small","Regular","Big","Very big"};
-    private final String[] EMERGENCIES = {"Emergency","Low","Medium","High","ASAP"};
+    private final String[] COMPLEXITIES = {"Complexity", "Easy", "Regular", "Complex", "Very Complex"};
+    private final String[] SIZES = {"Size", "Small", "Regular", "Big", "Very big"};
+    private final String[] EMERGENCIES = {"Emergency", "Low", "Medium", "High", "ASAP"};
 
-    private final String[] STATUSES = {"Status","Backlog","Doing","Done"};
+    private final String[] STATUSES = {"Status", "Backlog", "Doing", "Done"};
 
     private String taskID;
     private String projectID;
@@ -65,7 +69,7 @@ public class EditTaskActivity extends DrawerBaseActivity {
         Intent intent = getIntent();
         if (intent != null) {
             taskID = intent.getStringExtra("taskID");
-            projectID =intent.getStringExtra("projectID");
+            projectID = intent.getStringExtra("projectID");
         }
 
         findViews();
@@ -91,43 +95,42 @@ public class EditTaskActivity extends DrawerBaseActivity {
                 String teamString = taskTeam.getText().toString();
                 emails.clear(); // Clear the list before adding emails
 
-                if(TextUtils.isEmpty(name) || TextUtils.isEmpty(description) ||complexity.equals("Complexity") || emergency.equals("Emergency") || size.equals("Size") ||status.equals("Status"))
-                    SignalGenerator.getInstance().toast("You need to fill all fields",1);
-                else {
+                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(description) || complexity.equals("Complexity") ||
+                        emergency.equals("Emergency") || size.equals("Size") || status.equals("Status")) {
+                    SignalGenerator.getInstance().toast("You need to fill all fields", 1);
+                } else {
                     if (!teamString.isEmpty()) {
                         String[] emailArray = teamString.split("[ \n]+");
                         for (String email : emailArray) {
                             if (isEmailValid(email)) {
                                 emails.add(email);
                             } else {
-                                SignalGenerator.getInstance().toast("One of your emails is not rightly formatted", 1);
+                                SignalGenerator.getInstance().toast("One of your emails is not formatted correctly", 1);
                                 return;
                             }
                         }
                     }
-                    editTask(name, description, complexity, emergency, size,status, emails);
+                    editTask(name, description, complexity, emergency, size, status, emails);
                 }
-
-
             }
         });
     }
 
+    /**
+     * Populates the task data into the UI.
+     */
     private void populateData() {
         DatabaseReference taskRef = FirebaseDatabase.getInstance().getReference("tasks").child(taskID);
         taskRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // Retrieve the task object from the dataSnapshot
                     Task task = dataSnapshot.getValue(Task.class);
                     if (task != null) {
-                        // Set the values in the EditText fields
                         taskName.setText(task.getTaskName());
                         taskDescription.setText(task.getTaskDescription());
                         taskTeam.setText(TextUtils.join("\n", task.getAssigned()));
 
-                        // Set the selected items in the spinners
                         setSpinnerSelection(taskComplexity, task.getComplexityString(), COMPLEXITIES);
                         setSpinnerSelection(taskSize, task.getSizeString(), SIZES);
                         setSpinnerSelection(taskEmergency, task.getEmergencyString(), EMERGENCIES);
@@ -142,6 +145,14 @@ public class EditTaskActivity extends DrawerBaseActivity {
             }
         });
     }
+
+    /**
+     * Sets the selection of a spinner based on a given value.
+     *
+     * @param spinner     The spinner to set the selection for.
+     * @param selectedItem The value to select.
+     * @param items        The array of items in the spinner.
+     */
     private void setSpinnerSelection(Spinner spinner, String selectedItem, String[] items) {
         if (selectedItem != null) {
             int index = Arrays.asList(items).indexOf(selectedItem);
@@ -151,65 +162,82 @@ public class EditTaskActivity extends DrawerBaseActivity {
         }
     }
 
+    /**
+     * Edits the task with the provided information.
+     *
+     * @param name        The name of the task.
+     * @param description The description of the task.
+     * @param complexity  The complexity of the task.
+     * @param emergency   The emergency level of the task.
+     * @param size        The size of the task.
+     * @param status      The status of the task.
+     * @param emails      The list of team member emails assigned to the task.
+     */
     private void editTask(String name, String description, String complexity, String emergency, String size, String status, List<String> emails) {
 
         Complexity complex = null;
-        Size siz=null;
-        Emergency emerg=null;
+        Size siz = null;
+        Emergency emerg = null;
         Status stat = null;
-        switch(complexity){
+
+        switch (complexity) {
             case "Easy":
-                complex= Complexity.EASY;
+                complex = Complexity.EASY;
                 break;
             case "Regular":
-                complex=Complexity.REGULAR;
+                complex = Complexity.REGULAR;
                 break;
             case "Complex":
-                complex=Complexity.COMPLEX;
+                complex = Complexity.COMPLEX;
                 break;
             case "Very Complex":
-                complex=Complexity.VERY_COMPLEX;
+                complex = Complexity.VERY_COMPLEX;
+                break;
         }
-        switch(size){
+
+        switch (size) {
             case "Small":
-                siz= Size.SMALL;
+                siz = Size.SMALL;
                 break;
             case "Regular":
-                siz=Size.REGULAR;
+                siz = Size.REGULAR;
                 break;
             case "Big":
-                siz=Size.BIG;
+                siz = Size.BIG;
                 break;
             case "Very big":
-                siz=Size.VERY_BIG;
+                siz = Size.VERY_BIG;
+                break;
         }
-        switch(emergency){
+
+        switch (emergency) {
             case "Low":
-                emerg= Emergency.LOW;
+                emerg = Emergency.LOW;
                 break;
             case "Medium":
-                emerg=Emergency.MEDIUM;
+                emerg = Emergency.MEDIUM;
                 break;
             case "High":
-                emerg=Emergency.HIGH;
+                emerg = Emergency.HIGH;
                 break;
             case "ASAP":
-                emerg=Emergency.ASAP;
+                emerg = Emergency.ASAP;
+                break;
         }
-        switch(status){
+
+        switch (status) {
             case "Backlog":
-                stat= Status.BACKLOG;
+                stat = Status.BACKLOG;
                 break;
             case "Doing":
-                stat=Status.DOING;
+                stat = Status.DOING;
                 break;
             case "Done":
-                stat=Status.DONE;
+                stat = Status.DONE;
                 break;
         }
-//        if(!emails.contains(MySP.getInstance().getEmail()))
-//            emails.add(MySP.getInstance().getEmail());
-        Task task = new Task(name,description,emails,complex,siz,emerg,stat,projectID);
+
+        Task task = new Task(name, description, emails, complex, siz, emerg, stat, projectID);
 
         DatabaseReference projectRef = FirebaseDatabase.getInstance().getReference("tasks").child(taskID);
         projectRef.child("taskName").setValue(task.getTaskName());
@@ -222,17 +250,24 @@ public class EditTaskActivity extends DrawerBaseActivity {
         projectRef.child("size").setValue(task.getSize());
         projectRef.child("emergencyString").setValue(task.getEmergencyString());
         projectRef.child("emergency").setValue(task.getEmergency());
-        SignalGenerator.getInstance().toast("Task updated successfully",1);
+
+        SignalGenerator.getInstance().toast("Task updated successfully", 1);
         openTasksView();
     }
 
+    /**
+     * Opens the tasks view activity.
+     */
     private void openTasksView() {
-        Intent intent = new Intent(this,TasksActivity.class);
-        intent.putExtra("projectID",TasksActivity.projectID);
+        Intent intent = new Intent(this, TasksActivity.class);
+        intent.putExtra("projectID", TasksActivity.projectID);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * Sets up the spinners with their respective values.
+     */
     private void setSpinners() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, COMPLEXITIES);
         taskComplexity.setAdapter(adapter);
@@ -250,9 +285,20 @@ public class EditTaskActivity extends DrawerBaseActivity {
         taskStatus.setAdapter(adapter);
         taskStatus.setSelection(0);
     }
-    boolean isEmailValid(String email) {
+
+    /**
+     * Checks if an email is valid.
+     *
+     * @param email The email address to check.
+     * @return True if the email is valid, false otherwise.
+     */
+    private boolean isEmailValid(String email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
+
+    /**
+     * Finds and initializes the views used in the activity layout.
+     */
     private void findViews() {
         taskName = findViewById(R.id.LBL_EditTask_taskName);
         taskDescription = findViewById(R.id.editText_EditTask_Description);

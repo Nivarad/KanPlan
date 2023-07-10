@@ -57,6 +57,7 @@ public class SignUpActivity extends AppCompatActivity {
                     String firstname = firstnameEditText.getText().toString();
                     String lastname = lastnameEditText.getText().toString();
                     signUpUser(email,password,firstname,lastname);
+
                 }
 
             }

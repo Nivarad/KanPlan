@@ -47,14 +47,14 @@ public class AllTasksActivity extends DrawerBaseActivity {
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openProjectsView();
+                openHomeView();
             }
         });
 
     }
 
-    private void openProjectsView() {
-        Intent intent =new Intent(this,ProjectsActivity.class);
+    private void openHomeView() {
+        Intent intent =new Intent(this,HomeActivity.class);
         startActivity(intent);
     }
 

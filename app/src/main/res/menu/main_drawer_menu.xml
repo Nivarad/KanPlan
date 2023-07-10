@@ -13,7 +13,7 @@
         <item
             android:id="@+id/nav_tasks"
             android:icon="@drawable/task_list_menu_document_svgrepo_com"
-            android:title="Tasks" />
+            android:title="Your Tasks" />
 
     </group>
 
@@ -46,8 +46,8 @@
 
             <item
                 android:id="@+id/nav_rate"
-                android:title="Rate Us"
-                android:icon="@drawable/baseline_rate_review_24"/>
+                android:title="About Me"
+                android:icon="@drawable/baseline_info_24"/>
         </menu>
 
     </item>
