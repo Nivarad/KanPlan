@@ -19,6 +19,7 @@ import com.example.kanplan.Utils.DrawerBaseActivity;
 import com.example.kanplan.Utils.MySP;
 import com.example.kanplan.databinding.ActivityEditProjectBinding;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -216,26 +217,27 @@ public class EditProjectActivity extends DrawerBaseActivity {
 
         if (!emails.contains(MySP.getInstance().getEmail())) {
             emails.add(MySP.getInstance().getEmail());
-
-            Project project = new Project(name, user, description, emails, complex, siz, emerg, "");
-
-            DatabaseReference projectRef = FirebaseDatabase.getInstance().getReference("projects").child(projectID);
-            projectRef.child("projectName").setValue(project.getProjectName());
-            projectRef.child("description").setValue(project.getDescription());
-            projectRef.child("team").setValue(project.getTeam());
-            projectRef.child("complexityString").setValue(project.getComplexityString());
-            projectRef.child("complexity").setValue(project.getComplexity());
-            projectRef.child("sizeString").setValue(project.getSizeString());
-            projectRef.child("size").setValue(project.getSize());
-            projectRef.child("emergencyString").setValue(project.getEmergencyString());
-            projectRef.child("emergency").setValue(project.getEmergency());
-            SignalGenerator.getInstance().toast("Project updated successfully", 1);
-
-            // Show a success message or perform any other desired actions
-
-            // Return to the ProjectsActivity
-            openProjectsActivity();
         }
+
+        Project project = new Project(name, FirebaseAuth.getInstance().getCurrentUser().getEmail(), description, emails, complex, siz, emerg, "");
+
+        DatabaseReference projectRef = FirebaseDatabase.getInstance().getReference("projects").child(projectID);
+        projectRef.child("projectName").setValue(project.getProjectName());
+        projectRef.child("description").setValue(project.getDescription());
+        projectRef.child("team").setValue(project.getTeam());
+        projectRef.child("complexityString").setValue(project.getComplexityString());
+        projectRef.child("complexity").setValue(project.getComplexity());
+        projectRef.child("sizeString").setValue(project.getSizeString());
+        projectRef.child("size").setValue(project.getSize());
+        projectRef.child("emergencyString").setValue(project.getEmergencyString());
+        projectRef.child("emergency").setValue(project.getEmergency());
+        SignalGenerator.getInstance().toast("Project updated successfully", 1);
+
+        // Show a success message or perform any other desired actions
+
+        // Return to the ProjectsActivity
+        openProjectsActivity();
+
     }
 
     /**

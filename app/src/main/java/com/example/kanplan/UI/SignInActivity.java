@@ -39,11 +39,16 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        if(!MySP.getInstance().getName().equals("") && !MySP.getInstance().getEmail().equals("")) {
-            openHomeScreen();
-        }
+//        if(!MySP.getInstance().getName().equals("") && !MySP.getInstance().getEmail().equals("")) {
+//            openHomeScreen();
+//        }
         findViews();
         auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        if(user!=null){
+            openHomeScreen();
+        }
+
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

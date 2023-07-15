@@ -1,11 +1,22 @@
 package com.example.kanplan.Models;
 
+import com.example.kanplan.Data.DataManager.Gender;
+
 public class User {
 
     private String firstname;
     private String lastname;
     private String email;
 
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    private Gender gender;
 
     private String userID;
 
@@ -50,17 +61,19 @@ public class User {
     }
 
 
-    public User(String firstname,String lastname,String email,String userID){
+    public User(String firstname,String lastname,String email,String userID,Gender gender){
         this.firstname=firstname;
         this.lastname=lastname;
         this.email=email;
         this.userID=userID;
+        this.gender= gender;
     }
 
-    public User(String firstname,String lastname,String email){
+    public User(String firstname,String lastname,String email, Gender gender){
         this.firstname=firstname;
         this.lastname=lastname;
         this.email=email;
+        this.gender= gender;
 
     }
     public User(){}

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.kanplan.Data.DataManager;
 import com.example.kanplan.Models.Name;
 import com.example.kanplan.Models.User;
 import com.example.kanplan.R;
@@ -84,7 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference usersRef = database.getReference("Users");
-                    User user = new User(firstname,lastname,email,task.getResult().getUser().getUid());
+                    User user = new User(firstname,lastname,email,task.getResult().getUser().getUid(), DataManager.Gender.NON_BINARY);
                     SignalGenerator.getInstance().toast("Sign up made successfully",1);
                     usersRef.child(user.getUserID()).setValue(user);
                     MySP.getInstance().saveEmail(user.getEmail());

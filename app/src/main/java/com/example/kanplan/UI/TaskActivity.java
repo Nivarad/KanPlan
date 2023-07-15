@@ -20,6 +20,7 @@ import com.example.kanplan.Utils.MySP;
 import com.example.kanplan.databinding.ActivityTaskBinding;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -106,7 +107,7 @@ public class TaskActivity extends DrawerBaseActivity {
                     }
 
                     // Create a new comment and add it to the existing list
-                    Comment newComment = new Comment(MySP.getInstance().getName(), commentText.getText().toString(), comment);
+                    Comment newComment = new Comment(FirebaseAuth.getInstance().getCurrentUser().getEmail(), commentText.getText().toString(), comment);
                     existingComments.add(newComment);
 
                     // Update the comments list in the database

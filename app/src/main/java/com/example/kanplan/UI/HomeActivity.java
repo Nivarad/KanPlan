@@ -1,18 +1,10 @@
 package com.example.kanplan.UI;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.example.kanplan.R;
@@ -20,12 +12,9 @@ import com.example.kanplan.SignalGenerator;
 import com.example.kanplan.Utils.DrawerBaseActivity;
 import com.example.kanplan.Utils.MySP;
 import com.example.kanplan.databinding.ActivityHomeBinding;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.zip.Inflater;
 
 public class HomeActivity extends DrawerBaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -57,48 +46,14 @@ public class HomeActivity extends DrawerBaseActivity implements NavigationView.O
         allocateActivityTitle("Home");
 
         findViews();
+        settingListeners();
 
+    }
 
-
-
-        projects.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                enterProjectsActivity();
-
-            }
-        });
-
-        share.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                shareApplication();
-            }
-        });
-
-        tasks.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                enterAllTasksActivity();
-            }
-        });
-        aboutMe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ardos.netlify.app"));
-                startActivity(browserIntent);
-            }
-        });
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-                SignalGenerator.getInstance().toast("Logged out",0);
-            }
-        });
+    private void openPersonalizePage(){
+        Intent intent =new Intent(this,PersonalizeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void enterAllTasksActivity() {
@@ -146,6 +101,53 @@ public class HomeActivity extends DrawerBaseActivity implements NavigationView.O
         aboutMe = findViewById(R.id.Image_Home_About_Me);
 
 
+    }
+    private void settingListeners(){
+        projects.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                enterProjectsActivity();
+
+            }
+        });
+
+        share.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                shareApplication();
+            }
+        });
+
+        tasks.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                enterAllTasksActivity();
+            }
+        });
+        aboutMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ardos.netlify.app"));
+                startActivity(browserIntent);
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+                SignalGenerator.getInstance().toast("Logged out",0);
+            }
+        });
+
+        personalize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPersonalizePage();
+            }
+        });
     }
 
 

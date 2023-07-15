@@ -250,6 +250,8 @@ public class EditTaskActivity extends DrawerBaseActivity {
         projectRef.child("size").setValue(task.getSize());
         projectRef.child("emergencyString").setValue(task.getEmergencyString());
         projectRef.child("emergency").setValue(task.getEmergency());
+        projectRef.child("status").setValue(task.getStatus());
+        projectRef.child("statusString").setValue(task.getStatusString());
 
         SignalGenerator.getInstance().toast("Task updated successfully", 1);
         openTasksView();

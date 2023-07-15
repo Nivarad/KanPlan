@@ -162,7 +162,7 @@ public class CreateProjectActivity extends DrawerBaseActivity {
                 }
                 if(!emails.contains(MySP.getInstance().getEmail()))
                     emails.add(MySP.getInstance().getEmail());
-                Project project = new Project(name,user,description,emails,complex,siz,emerg,"");
+                Project project = new Project(name,FirebaseAuth.getInstance().getCurrentUser().getEmail(),description,emails,complex,siz,emerg,"");
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference projectsRef = database.getReference("projects");
 

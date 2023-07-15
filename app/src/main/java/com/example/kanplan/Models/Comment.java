@@ -8,14 +8,14 @@ import java.time.format.DateTimeFormatter;
 public class Comment {
 
 
-    private String commentWriterName;
+    private String writerEmail;
     private String commentText;
     private String commentTitle;
     private String date;
 
     public Comment(){}
-    public Comment(String commentWriterName,String commentText,String commentTitle){
-        this.commentWriterName =commentWriterName;
+    public Comment(String writerEmail,String commentText,String commentTitle){
+        this.writerEmail =writerEmail;
         this.commentText=commentText;
         this.commentTitle=commentTitle;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -26,12 +26,12 @@ public class Comment {
         }
 
     }
-    public String getCommentWriterName() {
-        return commentWriterName;
+    public String getWriterEmail() {
+        return writerEmail;
     }
 
-    public void setCommentWriterName(String name) {
-        this.commentWriterName = name;
+    public void setWriterEmail(String name) {
+        this.writerEmail = name;
     }
 
     public String getCommentText() {

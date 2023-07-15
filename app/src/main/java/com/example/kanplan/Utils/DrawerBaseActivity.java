@@ -2,7 +2,6 @@ package com.example.kanplan.Utils;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -15,8 +14,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.kanplan.UI.PersonalizeActivity;
 import com.example.kanplan.R;
-import com.example.kanplan.SignalGenerator;
 import com.example.kanplan.UI.AllTasksActivity;
 import com.example.kanplan.UI.HomeActivity;
 import com.example.kanplan.UI.ProjectsActivity;
@@ -73,13 +72,22 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
             case R.id.nav_rate:
                 openDeveloperWebsite();
                 break;
+            case R.id.nav_personalize:
+                openPersonalizePage();
         }
         return false;
+    }
+
+    private void openPersonalizePage() {
+        Intent intent =new Intent(this, PersonalizeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void enterTasksActivity() {
         Intent intent= new Intent(this, AllTasksActivity.class);
         startActivity(intent);
+        finish();
     }
 
     /**
@@ -88,6 +96,7 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
     private void openDeveloperWebsite() {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ardos.netlify.app/"));
         startActivity(browserIntent);
+
     }
 
     /**
@@ -121,6 +130,7 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
     private void enterProjectsActivity() {
         Intent intent = new Intent(this, ProjectsActivity.class);
         startActivity(intent);
+        finish();
     }
 
     /**
@@ -141,5 +151,6 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
     public void enterHomeActivity() {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+        finish();
     }
 }

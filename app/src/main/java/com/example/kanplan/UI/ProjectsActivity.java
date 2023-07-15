@@ -84,6 +84,7 @@ public class ProjectsActivity extends DrawerBaseActivity implements RecyclerView
     private void openCreateProjectView() {
         Intent intent = new Intent(this, CreateProjectActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void getUserProjects(String userEmail, final ProjectDataCallback callback) {
@@ -120,6 +121,7 @@ public class ProjectsActivity extends DrawerBaseActivity implements RecyclerView
     public void openHomeScreen() {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -127,9 +129,10 @@ public class ProjectsActivity extends DrawerBaseActivity implements RecyclerView
         Project project = storedProjects.get(position);
         Intent intent =new Intent(this,TasksActivity.class);
         intent.putExtra("projectID",project.getProjectID());
-        intent.putExtra("projectManager",project.getProjectManager().getEmail());
+        intent.putExtra("projectManager",project.getProjectManagerEmail());
         Log.d("project clicked", String.valueOf(storedProjects.get(position)));
         startActivity(intent);
+        finish();
 
     }
 

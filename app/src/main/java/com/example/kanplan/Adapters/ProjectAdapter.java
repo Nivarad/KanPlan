@@ -52,10 +52,10 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectH
 
     @Override
     public void onBindViewHolder(@NonNull ProjectHolder holder, int position) {
-        holder.leaderEmail = projects.get(position).getProjectManager().getEmail();
+        holder.leaderEmail = projects.get(position).getProjectManagerEmail();
         holder.projectName.setText(projects.get(position).getProjectName());
         holder.projectDescription.setText(projects.get(position).getDescription());
-        holder.projectLeader.setText(projects.get(position).getProjectManager().getUserName());
+
         holder.projectComplexity.setText(projects.get(position).getComplexityString());
         switch(projects.get(position).getComplexityString()){
             case "Very Complex":
@@ -102,6 +102,29 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectH
             case "Small":
                 holder.projectSize.setBackgroundResource(R.drawable.highlight_low_small_easy);
         }
+
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
+        Query query = usersRef.orderByChild("email").equalTo(projects.get(position).getProjectManagerEmail()).limitToFirst(1);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String firstName = snapshot.child("firstname").getValue(String.class);
+                    String lastName = snapshot.child("lastname").getValue(String.class);
+
+                    // Do something with the retrieved first and last name
+                    // For example, display them in a TextView or store them in variables
+                    holder.projectLeader.setText(firstName +" "+ lastName);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle any error that occurred during the database query
+                System.out.println("Error: " + databaseError.getMessage());
+            }
+        });
 
     }
 

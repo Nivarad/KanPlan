@@ -19,13 +19,13 @@
 
 
 
-        <item android:title="Profile">
+        <item android:title="Personalize">
             <menu>
                 <group android:checkableBehavior="single">
                     <item
-                        android:id="@+id/nav_profile"
+                        android:id="@+id/nav_personalize"
                         android:icon="@drawable/baseline_person_24"
-                        android:title="Profile" />
+                        android:title="Personalize" />
                     <item
                         android:id="@+id/nav_logout"
                         android:icon="@drawable/baseline_reply_24"

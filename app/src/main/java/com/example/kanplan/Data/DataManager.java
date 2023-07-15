@@ -30,6 +30,7 @@ public class DataManager {
 
     public enum Gender {
         MALE,
-        FEMALE
+        FEMALE,
+        NON_BINARY
     }
 }

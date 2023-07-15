@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.PersonalizeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_Personalize_Logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/kanplan_logo"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/LBL_Personalize_Update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update your information"
+            android:textStyle="bold|italic"
+            android:layout_below="@id/image_Personalize_Logo"
+            android:textSize="30sp"
+
+            android:layout_marginTop="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/LBL_Personalize_updateMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/LBL_Personalize_Update"
+            android:text="Fill only fields you want to change"
+            android:layout_marginVertical="5dp"/>
+
+        <EditText
+            android:id="@+id/editText_Personalize_email"
+            android:layout_below="@id/LBL_Personalize_updateMessage"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"/>
+
+        <EditText
+            android:layout_below="@id/editText_Personalize_email"
+            android:layout_marginTop="10dp"
+            android:id="@+id/editText_Personalize_firstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Firstname"/>
+
+        <EditText
+            android:layout_below="@id/editText_Personalize_firstname"
+            android:layout_marginTop="10dp"
+            android:id="@+id/editText_Personalize_lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lastname"/>
+
+        <EditText
+            android:id="@+id/editText_Personalize_password"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editText_Personalize_lastname"
+            android:layout_marginTop="10dp"
+            android:hint="Password"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/Personalize_gender"
+            android:layout_below="@+id/editText_Personalize_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/SwitchButton_Personalize_Gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:textOn="Male"
+                android:textOff="Female"
+                android:layout_below="@+id/editText_Personalize_password"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Female"
+
+                />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/Button_Personalize_Update"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:layout_below="@id/Personalize_gender"
+            android:layout_marginVertical="20dp"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="#D14D72"
+            android:layout_marginTop="40dp"/>
+
+
+    </RelativeLayout>
+</ScrollView>

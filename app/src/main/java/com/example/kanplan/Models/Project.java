@@ -14,7 +14,7 @@ public class Project {
 
     private String projectName;
 
-    private User projectManager;
+    private String projectManagerEmail;
 
     private String description ;
 
@@ -32,9 +32,9 @@ public class Project {
 
     private String projectID;
 
-    public Project(String projectName, User projectManager, String description, List<String> team, Complexity complexity, Size size, Emergency emergency, String projectID) {
+    public Project(String projectName, String projectManagerEmail, String description, List<String> team, Complexity complexity, Size size, Emergency emergency, String projectID) {
         this.projectName = projectName;
-        this.projectManager = projectManager;
+        this.projectManagerEmail = projectManagerEmail;
         this.description = description;
         this.team = team;
         this.complexity = complexity;
@@ -101,12 +101,12 @@ public class Project {
         this.projectName = projectName;
     }
 
-    public User getProjectManager() {
-        return projectManager;
+    public String getProjectManagerEmail() {
+        return projectManagerEmail;
     }
 
-    public void setProjectManager(User projectManager) {
-        this.projectManager = projectManager;
+    public void setProjectManagerEmail(String projectManagerEmail) {
+        this.projectManagerEmail = projectManagerEmail;
     }
 
     public String getDescription() {
